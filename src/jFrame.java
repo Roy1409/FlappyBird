@@ -9,7 +9,7 @@ public class jFrame {
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 
 
-        frame.setSize(750, 750);
+        frame.setSize(750, 600);
 
         frame.setLocationRelativeTo(null);
 
@@ -20,6 +20,5 @@ public class jFrame {
         frame.add(panel);
 
         frame.setVisible(true);
-        frame.getContentPane().setBackground(Color.BLUE);
     }
 }

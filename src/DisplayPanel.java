@@ -1,35 +1,37 @@
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.Graphics;
-import java.awt.Font;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.Timer;
+import java.util.Objects;
 
 
 public class DisplayPanel extends JPanel implements ActionListener {
     private String str;
+    private BufferedImage pipe2;
     private String userName;
     private String message;
     private JButton submit;
-    private BufferedImage bird;
+    private BufferedImage background;
+    private BufferedImage pipe;
+    private BufferedImage img;
     private JTextField textField;
-    private int birdX;
     public DisplayPanel() {
-    birdX=150;
         message = "Welcome To Flappy Bird!";
 
         try {
-            bird = ImageIO.read(new File("src\\bird.png"));
+            img =ImageIO.read(new File("src\\bird.png"));
+            pipe = ImageIO.read(new File("src\\pipe.png"));
+            pipe2=ImageIO.read(new File("src\\pipe2.png"));
+            background = ImageIO.read(new File("src\\a.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
+
 
         textField = new JTextField(10);
         add(textField);
@@ -48,11 +50,17 @@ public class DisplayPanel extends JPanel implements ActionListener {
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.RED);
         g.drawString(message, 225, 100);
-        g.drawImage(bird, birdX, 150, null);
+        g.drawImage(background, 0, -100, null);
+        g.drawImage(pipe,0,0,null);
+        g.drawImage(pipe2,50,50,null);
+        g.drawImage(img,100,100,null);
+
         g.setColor(Color.BLACK);
         g.drawString("Enter your name!", 260, 150);
         textField.setLocation(270, 150);
         submit.setLocation(270, 250);
+
+
     }
 
 
@@ -66,7 +74,7 @@ public class DisplayPanel extends JPanel implements ActionListener {
                 String enteredText = textField.getText();
 
                 // update message to the entered text
-                userName=enteredText;
+                userName = enteredText;
 
                 // refresh the screen so that the updated message gets displayed
                 repaint();
@@ -75,25 +83,7 @@ public class DisplayPanel extends JPanel implements ActionListener {
             }
 
 
-
-        }
-        if(e.getSource() instanceof Timer) {
-            birdX+=2;
-
-
-
         }
 
-        if (birdX==600) {
-            birdX=-150;
-        }
 
-        repaint();
-
-    }
-
-
-
-
-
-}
+    }}
