@@ -61,6 +61,9 @@ public class DisplayPanel extends JPanel implements ActionListener {
     if(e.getSource() instanceof Timer) {
         birdY+=30;
         birdX+=30;
+        if (birdX>750) {
+            birdX=100;
+        }
     }
 
 
@@ -68,9 +71,7 @@ public class DisplayPanel extends JPanel implements ActionListener {
         birdY-=90;
     }
 
-    if (birdY>750) {
-        birdY=100;
-    }
+
 
 repaint();
 
