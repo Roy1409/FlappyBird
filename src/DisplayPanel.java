@@ -19,28 +19,25 @@ public class DisplayPanel extends JPanel implements ActionListener {
     private BufferedImage pipe;
     private BufferedImage img;
     private JTextField textField;
+    private int birdX;
+    private int birdY;
     public DisplayPanel() {
+        birdX=200;
+        birdY=100;
         message = "Welcome To Flappy Bird!";
 
         try {
             img =ImageIO.read(new File("src\\bird.png"));
-            pipe = ImageIO.read(new File("src\\pipe.png"));
-            pipe2=ImageIO.read(new File("src\\pipe2.png"));
+            pipe = ImageIO.read(new File("src\\pipe.jpg"));
+            pipe2 = ImageIO.read(new File("src\\pipe2.png"));
+
             background = ImageIO.read(new File("src\\a.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-
-
-        textField = new JTextField(10);
-        add(textField);
-
-        submit = new JButton("Start Game!");
-        submit.addActionListener(this);
-        add(submit);
-        Timer time=new Timer(10,this);
+        Timer time= new Timer(200,this);
         time.start();
+
 
     }
 
@@ -51,39 +48,33 @@ public class DisplayPanel extends JPanel implements ActionListener {
         g.setColor(Color.RED);
         g.drawString(message, 225, 100);
         g.drawImage(background, 0, -100, null);
-        g.drawImage(pipe,0,0,null);
-        g.drawImage(pipe2,50,50,null);
-        g.drawImage(img,100,100,null);
+        g.drawImage(pipe,450,300,null);
+        g.drawImage(pipe2,375,-150,null);
 
-        g.setColor(Color.BLACK);
-        g.drawString("Enter your name!", 260, 150);
-        textField.setLocation(270, 150);
-        submit.setLocation(270, 250);
+        g.drawImage(img,birdX,birdY,null);
 
 
     }
 
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JButton casted = (JButton) e.getSource();
+    if(e.getSource() instanceof Timer) {
+        birdY+=30;
+        birdX+=30;
+    }
 
 
-            if (casted == submit) {
-                // obtain string from text field
-                String enteredText = textField.getText();
+    if (birdY==160) {
+        birdY-=90;
+    }
 
-                // update message to the entered text
-                userName = enteredText;
+    if (birdY>750) {
+        birdY=100;
+    }
 
-                // refresh the screen so that the updated message gets displayed
-                repaint();
-
-
-            }
-
+repaint();
 
         }
 
 
-    }}
+    }
