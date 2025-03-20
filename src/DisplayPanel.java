@@ -87,10 +87,10 @@ repaint();
 
 
 
-    @Override
+
     public void keyTyped(KeyEvent e) { }
 
-    @Override
+
     public void keyPressed(KeyEvent e) {
 
 
@@ -98,27 +98,31 @@ repaint();
         repaint();
     }
 
-    @Override
+
     public void keyReleased(KeyEvent e) { }
 
     // must add all 5 of the following methods, which are required by MouseListener interface
-    @Override
-    public void mouseClicked(MouseEvent e) { } // leave empty; don't need this one
 
-    @Override
+    public void mouseClicked(MouseEvent e) {
+
+
+
+
+    } // leave empty; don't need this one
+
+
     public void mousePressed(MouseEvent e) { } // leave empty; don't need this one
 
     // when the user clicks either mouse button (left or right),
     // this method is called by the system when the user lets go of the mouse button
-    @Override
+
     public void mouseReleased(MouseEvent e) {
     }
 
-    @Override
+
     public void mouseEntered(MouseEvent e) { } // leave empty; don't need this one
 
-    @Override
+
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 }
 
-    }
