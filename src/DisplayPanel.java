@@ -18,7 +18,9 @@ public class DisplayPanel extends JPanel implements ActionListener {
     private BufferedImage background;
     private BufferedImage pipe;
     private BufferedImage img;
+    private BufferedImage logo;
     private JTextField textField;
+    private BufferedImage start;
     private int birdX;
     private int birdY;
     public DisplayPanel() {
@@ -28,8 +30,11 @@ public class DisplayPanel extends JPanel implements ActionListener {
 
         try {
             img =ImageIO.read(new File("src\\bird.png"));
-            pipe = ImageIO.read(new File("src\\pipe.jpg"));
+            pipe = ImageIO.read(new File("src\\pipe.png"));
             pipe2 = ImageIO.read(new File("src\\pipe2.png"));
+            logo = ImageIO.read(new File("src\\Logo.png"));
+            start =ImageIO.read(new File("src\\Start.png"));
+
 
             background = ImageIO.read(new File("src\\a.png"));
         } catch (IOException e) {
@@ -50,7 +55,8 @@ public class DisplayPanel extends JPanel implements ActionListener {
         g.drawImage(background, 0, -100, null);
         g.drawImage(pipe,450,300,null);
         g.drawImage(pipe2,375,-150,null);
-
+        g.drawImage(logo,75,50,null);
+        g.drawImage(start,80,300,this);
         g.drawImage(img,birdX,birdY,null);
 
 
