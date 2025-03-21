@@ -1,9 +1,10 @@
 import javax.swing.JFrame;
 import java.awt.*;
 
-public class jFrame {
+public class jFrame  {
 
     public jFrame() {
+
         // create a JFrame (a window) and with a particular text for the title bar
         JFrame frame = new JFrame("Flappy Bird");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -20,5 +21,11 @@ public class jFrame {
         frame.add(panel);
 
         frame.setVisible(true);
+
     }
+
+
+
+
+
 }
