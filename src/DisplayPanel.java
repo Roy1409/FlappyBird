@@ -52,12 +52,13 @@ public class DisplayPanel extends JPanel implements ActionListener {
             pipe2 = ImageIO.read(new File("src\\pipe2.png"));
             logo = ImageIO.read(new File("src\\Logo.png"));
             start =ImageIO.read(new File("src\\Start.png"));
-
+            floor = ImageIO.read(new File("src\\floor.png"));
 
             background = ImageIO.read(new File("src\\a.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         Timer time= new Timer(200,this);
         time.start();
 
@@ -113,7 +114,7 @@ public class DisplayPanel extends JPanel implements ActionListener {
             birdX=100;
         }
 
-        if (floorX<-100) {
+        if (floorX<-50) {
             floorX=-10;
         }
     }
@@ -132,10 +133,6 @@ public class DisplayPanel extends JPanel implements ActionListener {
 
 
     public void keyPressed(KeyEvent e) {
-
-
-
-        repaint();
     }
 
 
@@ -144,10 +141,6 @@ public class DisplayPanel extends JPanel implements ActionListener {
     // must add all 5 of the following methods, which are required by MouseListener interface
 
     public void mouseClicked(MouseEvent e) {
-
-
-
-
     } // leave empty; don't need this one
 
 
