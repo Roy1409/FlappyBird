@@ -1,17 +1,14 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JButton;
 
 
-public class DisplayPanel extends JPanel implements ActionListener {
+public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
     private BufferedImage pipe2;
     private String userName;
@@ -28,10 +25,16 @@ public class DisplayPanel extends JPanel implements ActionListener {
     private BufferedImage floor;
     private int birdX;
     private int floorX;
+    private int bird2Y;
     private JButton button;
     private int birdY;
+    private boolean b;
+    private int bird2X;
     public DisplayPanel() {
+
         floorX=0;
+        bird2Y=150;
+        bird2X=150;
         birdX=200;
         birdY=100;
         button = new JButton("");
@@ -59,7 +62,7 @@ public class DisplayPanel extends JPanel implements ActionListener {
             System.out.println(e.getMessage());
         }
 
-        Timer time= new Timer(200,this);
+        Timer time= new Timer(150,this);
         time.start();
 
 
@@ -83,7 +86,7 @@ public class DisplayPanel extends JPanel implements ActionListener {
         button.setSize(300,110 );
 
         button.setLocation(80,300); } else{
-            g.drawImage(bird2,150,150,null);
+            g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(space,250,50,null);
 
 
@@ -114,9 +117,10 @@ public class DisplayPanel extends JPanel implements ActionListener {
             birdX=100;
         }
 
-        if (floorX<-50) {
+        if (floorX<-400) {
             floorX=-10;
         }
+
     }
     if (birdY==160) {
         birdY-=90;
@@ -133,6 +137,14 @@ public class DisplayPanel extends JPanel implements ActionListener {
 
 
     public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            System.out.println("PRESSED");
+        }
+
+
+        repaint();
+
+
     }
 
 

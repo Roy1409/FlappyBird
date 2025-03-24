@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class jFrame  {
 
@@ -21,6 +22,7 @@ public class jFrame  {
         frame.add(panel);
 
         frame.setVisible(true);
+        frame.addKeyListener(new DisplayPanel());
 
     }
 
