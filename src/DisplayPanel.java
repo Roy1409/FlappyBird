@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.security.Key;
 import javax.swing.JButton;
 
 
@@ -26,9 +27,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private int birdX;
     private int floorX;
     private int bird2Y;
+    private Timer time;
     private JButton button;
     private int birdY;
-    private boolean b;
+    private boolean b=false;
     private int bird2X;
     public DisplayPanel() {
 
@@ -62,7 +64,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             System.out.println(e.getMessage());
         }
 
-        Timer time= new Timer(150,this);
+        time= new Timer(150,this);
         time.start();
 
 
@@ -105,6 +107,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() instanceof JButton) {
             a= true;
             Start();
@@ -119,9 +122,17 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if (floorX<-400) {
             floorX=-10;
+
         }
 
+                if (b) {
+                bird2Y+=10; }
+
+
+
     }
+
+
     if (birdY==160) {
         birdY-=90;
     }
@@ -137,12 +148,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+        if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+           bTrue();
+            System.out.println(b);
             System.out.println("PRESSED");
+            System.out.println(bird2Y);
+            repaint();
         }
-
-
-        repaint();
 
 
     }
@@ -182,7 +194,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     }
 
-
+public void bTrue() {
+        b=true;
+}
 
 }
 
