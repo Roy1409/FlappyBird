@@ -12,14 +12,10 @@ import javax.swing.JButton;
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
     private BufferedImage pipe2;
-    private String userName;
-    private String message;
-    private JButton submit;
     private BufferedImage background;
     private BufferedImage pipe;
     private BufferedImage img;
     private BufferedImage logo;
-    private JTextField textField;
     private BufferedImage start;
     private BufferedImage bird2;
     private BufferedImage space;
@@ -75,11 +71,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+        add(button);
+        add(button1);
         time= new Timer(150,this);
         time.start();
-
-
+        addKeyListener(this);
+        setFocusable(true);
+        requestFocusInWindow();
     }
 
     @Override
@@ -98,12 +96,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
 
-        add(button);
+
         button.setSize(300,110 );
 
         button.setLocation(80,300);
 
-            add(button1);
+
             button1.setSize(150,150 );
 
             button1.setLocation(360,280);
@@ -122,13 +120,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(space,250,50,null);
             g.drawImage(floor,floorX,460, null);
-
-
-
-
-
         }
-
         g.drawImage(floor,floorX,460, null);
 
 
@@ -151,39 +143,29 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 a=false;
                 c=true;
                 shop();
-
             }
-
         }
 
-    if(e.getSource() instanceof Timer){
-        birdY+=30;
-        floorX-=30;
-        birdX+=30;
-        if (birdX>750) {
-            birdX=100;
+        if(e.getSource() instanceof Timer){
+            birdY+=30;
+            floorX-=30;
+            birdX+=30;
+            if (birdX>750) {
+                birdX=100;
+            }
+            if (floorX<-400) {
+                floorX=-10;
+            }
+//            System.out.println(b);
+        if (b) {
+            bird2Y+=10; }
         }
-
-        if (floorX<-400) {
-            floorX=-10;
-
+        if (birdY==160) {
+            birdY-=90;
         }
-
-                if (b) {
-                bird2Y+=10; }
-
-
-
-    }
-
-
-    if (birdY==160) {
-        birdY-=90;
-    }
-
 
         repaint();
-        }
+    }
 
 
 
@@ -192,6 +174,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void keyPressed(KeyEvent e) {
+        System.out.println("type");
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
            b=true;
             System.out.println(b);

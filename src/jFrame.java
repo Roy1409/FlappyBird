@@ -22,7 +22,7 @@ public class jFrame  {
         frame.add(panel);
 
         frame.setVisible(true);
-        frame.addKeyListener(new DisplayPanel());
+//        frame.addKeyListener(new DisplayPanel());
 
     }
 
