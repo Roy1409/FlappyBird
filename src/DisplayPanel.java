@@ -22,12 +22,17 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private JTextField textField;
     private BufferedImage start;
     private BufferedImage bird2;
+    private BufferedImage bird3;
     private BufferedImage space;
+    private BufferedImage shop;
     private BufferedImage floor;
     private int birdX;
     private int floorX;
+    private boolean c;
     private int bird2Y;
     private Timer time;
+    private JButton button1;
+
     private JButton button;
     private int birdY;
     private boolean b=false;
@@ -47,6 +52,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button.setBorderPainted(true);
         button.setBorder(null);
         button.addActionListener(this);
+        button1 = new JButton("");
+        button1.setOpaque(false);
+        button1.setContentAreaFilled(false);
+        button1.setFocusable(false);
+        button1.setBorderPainted(true);
+        button1.setBorder(null);
+        button1.addActionListener(this);
 
 
 
@@ -58,7 +70,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             logo = ImageIO.read(new File("src\\Logo.png"));
             start =ImageIO.read(new File("src\\Start.png"));
             floor = ImageIO.read(new File("src\\floor.png"));
-
+            shop= ImageIO.read(new File("src\\shop.png"));
             background = ImageIO.read(new File("src\\a.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -77,25 +89,45 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.RED);
         g.drawImage(background, 0, -100, null);g.drawImage(background, 0, -100, null);
-        if (!a) {
+        if (!a && !c){
         g.drawImage(pipe,450,300,null);
         g.drawImage(pipe2,375,-150,null);
         g.drawImage(logo,75,50,null);
         g.drawImage(start,80,300,this);
         g.drawImage(img,birdX,birdY,null);
+        g.drawImage(shop,360,280,null);
+            g.drawImage(floor,floorX,460, null);
 
         add(button);
         button.setSize(300,110 );
 
-        button.setLocation(80,300); } else{
+        button.setLocation(80,300);
+
+            add(button1);
+            button1.setSize(150,150 );
+
+            button1.setLocation(360,280);
+
+        } else if (c)
+
+
+
+        {
+
+            g.drawImage(bird3,100,100,null); }
+
+
+       if (a) {
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(space,250,50,null);
+            g.drawImage(floor,floorX,460, null);
 
 
 
 
 
         }
+
         g.drawImage(floor,floorX,460, null);
 
 
@@ -109,9 +141,20 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() instanceof JButton) {
+            JButton casted = (JButton) e.getSource();
+            if (casted==button) {
             a= true;
             Start();
+            } else
+            if (casted==button1) {
+                a=false;
+                c=true;
+                shop();
+
+            }
+
         }
+
     if(e.getSource() instanceof Timer){
         birdY+=30;
         floorX-=30;
@@ -149,7 +192,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-           bTrue();
+           b=true;
             System.out.println(b);
             System.out.println("PRESSED");
             System.out.println(bird2Y);
@@ -194,9 +237,15 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     }
 
-public void bTrue() {
-        b=true;
-}
+    public void shop() {
+            try{
+                bird3= ImageIO.read(new File("src\\cosmetic.png"));
+            } catch(IOException e) {
+                System.out.println(e.getMessage());
+            }
+    }
+
+
 
 }
 
