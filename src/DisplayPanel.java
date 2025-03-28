@@ -22,11 +22,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private JTextField textField;
     private BufferedImage start;
     private BufferedImage bird2;
-    private BufferedImage bird3;
     private BufferedImage space;
     private BufferedImage shop;
     private BufferedImage floor;
     private int birdX;
+    private BufferedImage shopButton;
     private int floorX;
     private boolean c;
     private int bird2Y;
@@ -114,7 +114,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         {
 
-            g.drawImage(bird3,100,100,null); }
+        g.drawImage(shopButton,200,0,null);
+        }
 
 
        if (a) {
@@ -239,7 +240,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     public void shop() {
             try{
-                bird3= ImageIO.read(new File("src\\cosmetic.png"));
+                shopButton=ImageIO.read(new File("src\\shopButton.png"));
             } catch(IOException e) {
                 System.out.println(e.getMessage());
             }
