@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.security.Key;
 import javax.swing.JButton;
 
 
@@ -16,7 +15,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage pipe;
     private BufferedImage img;
     private BufferedImage logo;
+    private boolean d;
     private BufferedImage start;
+    private BufferedImage gameOver;
     private BufferedImage bird2;
     private BufferedImage space;
     private BufferedImage shop;
@@ -95,27 +96,15 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         g.drawImage(img,birdX,birdY,null);
         g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
-
-
         button.setSize(300,110 );
-
         button.setLocation(80,300);
-
-
             button1.setSize(150,150 );
-
             button1.setLocation(360,280);
 
         } else if (c)
-
-
-
         {
-
         g.drawImage(shopButton,200,0,null);
         }
-
-
        if (a) {
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(space,250,50,null);
@@ -123,13 +112,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         g.drawImage(floor,floorX,460, null);
 
-
-
-
-
-
+       if (d) {
+           g.drawImage(gameOver,200,200,null);
+       }
     }
-
 
     public void actionPerformed(ActionEvent e) {
 
@@ -137,15 +123,19 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             JButton casted = (JButton) e.getSource();
             if (casted==button) {
             a= true;
+                this.remove(button1);
+
+                this.remove(button);
             Start();
             } else
             if (casted==button1) {
                 a=false;
                 c=true;
+                this.remove(button);
+                this.remove(button1);
                 shop();
             }
         }
-
         if(e.getSource() instanceof Timer){
             birdY+=30;
             floorX-=30;
@@ -157,17 +147,19 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 floorX=-10;
             }
 //            System.out.println(b);
-        if (b) {
+        if (b && !d) {
             bird2Y+=10; }
+        if (bird2Y==350) {
+            gameOver();
+
+        }
         }
         if (birdY==160) {
             birdY-=90;
         }
-
         repaint();
+        requestFocusInWindow();
     }
-
-
 
 
     public void keyTyped(KeyEvent e) { }
@@ -229,7 +221,14 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             }
     }
 
-
+    public void gameOver() {
+        try{
+            gameOver=ImageIO.read(new File("src\\gameOver.png"));
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+        d=true;
+    }
 
 }
 
