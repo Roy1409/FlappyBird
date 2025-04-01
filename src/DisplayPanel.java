@@ -84,7 +84,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        System.out.println("lol");
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.RED);
         g.drawImage(background, 0, -100, null);g.drawImage(background, 0, -100, null);
