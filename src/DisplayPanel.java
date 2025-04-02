@@ -88,7 +88,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         add(button);
         add(button1);
-        time= new Timer(150,this);
+        time= new Timer(15,this);
         time.start();
         addKeyListener(this);
         setFocusable(true);
@@ -135,6 +135,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 g.drawImage(space,250,50,null);
 
             }
+
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(space,250,50,null);
             g.drawImage(floor,floorX,460, null);
@@ -174,9 +175,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
 
         if(e.getSource() instanceof Timer){
-            birdY+=30;
-            floorX-=40;
-            birdX+=30;
+
+            floorX-=4;
             if (pipesX == bird2X){
                 score++;
             }
@@ -188,23 +188,23 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 birdX=100;
             }
             if (floorX<-400) {
-                floorX=-10;
+                floorX=-1;
             }
+
             if (h) {
-                bird2Y-=30;
+                bird2Y-=40;
                 h=false;
             }
-//            System.out.println(b);
             if (b &&!d) {
                 f=true;
-                bird2Y+=10;
-                pipesX-=30;}
+                bird2Y+=2;
+                pipesX-=15;}
         }
         if (bird2Y==340) {
             d=true;
         }
-        if (birdY==160) {
-            birdY-=90;
+        if (birdY==16) {
+            birdY-=9;
         }
 
         repaint();
@@ -218,14 +218,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void keyPressed(KeyEvent e) {
-        System.out.println("type");
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             b=true;
         }
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             h=true;
         }
-
+        requestFocusInWindow();
 
     }
 
