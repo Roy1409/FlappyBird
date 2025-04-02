@@ -22,6 +22,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage shop;
     private BufferedImage floor;
     private BufferedImage pipes;
+    private boolean d;
     private int pipesX;
     private int pipesY;
     private int birdX;
@@ -30,6 +31,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private boolean c;
     private int bird2Y;
     private Timer time;
+    private BufferedImage gameOver;
     private JButton button1;
     private JButton button;
     private int birdY;
@@ -65,6 +67,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
         try {
+            shopButton=ImageIO.read(new File("src\\shopButton.png"));
+            bird2 = ImageIO.read(new File("src\\bird2.png"));
+            space = ImageIO.read(new File("src\\space.png"));
+            background = ImageIO.read(new File("src\\a.png"));
+            gameOver=ImageIO.read(new File("src\\gameOver.png"));
             pipes = ImageIO.read(new File("src\\pipes.png"));
             img =ImageIO.read(new File("src\\bird.png"));
             pipe = ImageIO.read(new File("src\\pipe.png"));
@@ -130,7 +137,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         g.drawImage(floor,floorX,460, null);
 
-
+        if (d) {
+            g.drawImage(gameOver,100,100,null);
+        }
 
 
 
@@ -144,12 +153,17 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             JButton casted = (JButton) e.getSource();
             if (casted==button) {
                 a= true;
-                Start();
+                remove(button);
+                remove(button1);
+
+
             } else
             if (casted==button1) {
                 a=false;
                 c=true;
-                shop();
+                remove(button);
+                remove(button1);
+
             }
         }
 
@@ -171,14 +185,18 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 floorX=-10;
             }
 //            System.out.println(b);
-            if (b) {
+            if (b &&!d) {
                 bird2Y+=10; }
+        }
+        if (bird2Y==340) {
+            d=true;
         }
         if (birdY==160) {
             birdY-=90;
         }
 
         repaint();
+        requestFocusInWindow();
     }
 
 
@@ -224,24 +242,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
 
-    public void Start() {
-        try {
-            bird2 = ImageIO.read(new File("src\\bird2.png"));
-            space = ImageIO.read(new File("src\\space.png"));
-            background = ImageIO.read(new File("src\\a.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    public void shop() {
-        try{
-            shopButton=ImageIO.read(new File("src\\shopButton.png"));
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
 
 
