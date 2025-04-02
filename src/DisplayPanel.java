@@ -17,6 +17,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage img;
     private BufferedImage logo;
     private BufferedImage start;
+    private boolean f;
+    private boolean h;
     private BufferedImage bird2;
     private BufferedImage space;
     private BufferedImage shop;
@@ -129,6 +131,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
         if (a) {
+            if (!b) {
+                g.drawImage(space,250,50,null);
+
+            }
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(space,250,50,null);
             g.drawImage(floor,floorX,460, null);
@@ -171,6 +177,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             birdY+=30;
             floorX-=40;
             birdX+=30;
+            pipesX-=30;
             if (pipesX == bird2X){
                 score++;
             }
@@ -184,11 +191,14 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             if (floorX<-400) {
                 floorX=-10;
             }
+            if (h) {
+                bird2Y-=30;
+                h=false;
+            }
 //            System.out.println(b);
             if (b &&!d) {
-                bird2Y+=10;
-                pipesX-=50;
-            }
+                f=true;
+                bird2Y+=10; }
         }
         if (bird2Y==340) {
             d=true;
@@ -211,10 +221,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         System.out.println("type");
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             b=true;
-            System.out.println(b);
-            System.out.println("PRESSED");
-            System.out.println(bird2Y);
-            repaint();
+        }
+        if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
+            h=true;
         }
 
 
