@@ -171,7 +171,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             birdY+=30;
             floorX-=40;
             birdX+=30;
-            pipesX-=30;
             if (pipesX == bird2X){
                 score++;
             }
@@ -187,7 +186,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             }
 //            System.out.println(b);
             if (b &&!d) {
-                bird2Y+=10; }
+                bird2Y+=10;
+                pipesX-=50;
+            }
         }
         if (bird2Y==340) {
             d=true;
