@@ -19,11 +19,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage start;
     private boolean f;
     private boolean h;
+    private BufferedImage tryAgain;
     private BufferedImage bird2;
     private BufferedImage space;
     private BufferedImage shop;
     private BufferedImage floor;
     private BufferedImage pipes;
+    private JButton button2;
     private boolean d;
     private int pipesX;
     private int pipesY;
@@ -50,7 +52,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         pipesX = 750;
         pipesY = -300;
         button = new JButton("");
-
+        button2= new JButton("");
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setFocusable(false);
@@ -64,11 +66,18 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button1.setBorderPainted(true);
         button1.setBorder(null);
         button1.addActionListener(this);
+        button2.setOpaque(false);
+        button2.setContentAreaFilled(false);
+        button2.setFocusable(false);
+        button2.setBorderPainted(true);
+        button2.setBorder(null);
+        button2.addActionListener(this);
 
 
 
 
         try {
+            tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
             shopButton=ImageIO.read(new File("src\\shopButton.png"));
             bird2 = ImageIO.read(new File("src\\bird2.png"));
             space = ImageIO.read(new File("src\\space.png"));
@@ -88,6 +97,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         add(button);
         add(button1);
+
         time= new Timer(15,this);
         time.start();
         addKeyListener(this);
@@ -102,6 +112,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         g.setColor(Color.RED);
         g.drawImage(background, 0, -100, null);g.drawImage(background, 0, -100, null);
         if (!a && !c){
+
             g.drawImage(pipe,450,300,null);
             g.drawImage(pipe2,375,-150,null);
             g.drawImage(logo,75,50,null);
@@ -120,6 +131,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             button1.setLocation(360,280);
 
+            button2.setSize(200,111);
+            button2.setLocation(250,250);
+
         } else if (c)
 
 
@@ -137,15 +151,16 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             }
 
             g.drawImage(bird2,bird2X,bird2Y,null);
-            g.drawImage(space,250,50,null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
             System.out.println(score);
         }
         g.drawImage(floor,floorX,460, null);
 
-        if (d) {
-            g.drawImage(gameOver,100,100,null);
+        if (d ) {
+            g.drawImage(gameOver,135,100,null);
+            g.drawImage (tryAgain,250,250,null);
+            add(button2);
         }
 
 
@@ -171,6 +186,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 remove(button);
                 remove(button1);
 
+            } else if(casted==button2) {
+                bird2Y=150;
+                b=false;
+                d=false;
+                score=0;
+
+                pipesX=750;
             }
         }
 
