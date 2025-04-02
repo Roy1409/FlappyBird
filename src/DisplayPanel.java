@@ -70,7 +70,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button1.addActionListener(this);
         button2.setOpaque(false);
         button2.setContentAreaFilled(false);
-        button2.setFocusable(true);
+        button2.setFocusable(false);
         button2.setBorderPainted(true);
         button2.setBorder(null);
         button2.addActionListener(this);
