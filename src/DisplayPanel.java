@@ -70,7 +70,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button1.addActionListener(this);
         button2.setOpaque(false);
         button2.setContentAreaFilled(false);
-        button2.setFocusable(false);
+        button2.setFocusable(true);
         button2.setBorderPainted(true);
         button2.setBorder(null);
         button2.addActionListener(this);
@@ -157,8 +157,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             }
 
-            y.setVisible(true);
-            y.setText(score);
 
 
 
@@ -172,7 +170,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if (d ) {
             g.drawImage(gameOver,135,100,null);
             g.drawImage (tryAgain,250,250,null);
-button2.setVisible(true);
+            add(button2);
         }
 
 
@@ -203,7 +201,7 @@ button2.setVisible(true);
                 b=false;
                 d=false;
                 score="0";
-
+                System.out.println("type");
                 pipesX=750;
             }
         }
