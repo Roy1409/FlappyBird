@@ -176,6 +176,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 score++;
             }
             if (pipesX < -100){
+                pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 pipesX = 750;
             }
             if (birdX>750) {
