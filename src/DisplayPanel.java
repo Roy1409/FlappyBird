@@ -19,6 +19,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage start;
     private boolean f;
     private boolean h;
+
     private BufferedImage tryAgain;
     private BufferedImage bird2;
     private BufferedImage space;
@@ -27,6 +28,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage pipes;
     private JButton button2;
     private boolean d;
+    private JLabel y= new JLabel();
     private int pipesX;
     private int pipesY;
     private int birdX;
@@ -41,9 +43,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private int birdY;
     private boolean b=false;
     private int bird2X;
-    private int score;
+    private String score;
     public DisplayPanel() {
-        score=0;
+        score="0";
         floorX=0;
         bird2Y=150;
         bird2X=150;
@@ -96,7 +98,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             System.out.println(e.getMessage());
         }
         add(button);
+        add(button2);
+        button2.setVisible(false);
+        add(y);
         add(button1);
+        y.setVisible(false);
 
         time= new Timer(15,this);
         time.start();
@@ -121,7 +127,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
 
-
+            y.setSize(200,200);
+            y.setFont(new Font("Courier", Font.BOLD,75));
             button.setSize(300,110 );
 
             button.setLocation(80,300);
@@ -150,6 +157,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             }
 
+            y.setVisible(true);
+            y.setText(score);
+
+
+
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
@@ -160,7 +172,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if (d ) {
             g.drawImage(gameOver,135,100,null);
             g.drawImage (tryAgain,250,250,null);
-            add(button2);
+button2.setVisible(true);
         }
 
 
@@ -190,7 +202,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 bird2Y=150;
                 b=false;
                 d=false;
-                score=0;
+                score="0";
 
                 pipesX=750;
             }
@@ -200,7 +212,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             floorX-=4;
             if (pipesX == bird2X){
-                score++;
+                score=Integer.toString(Integer.parseInt(score)+1);
             }
             if (pipesX < -100){
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
