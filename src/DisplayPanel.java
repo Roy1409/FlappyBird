@@ -195,6 +195,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if(e.getSource() instanceof Timer){
 
+
+
+
             floorX-=4;
             if (pipesX == bird2X){
                 score=Integer.toString(Integer.parseInt(score)+1);
@@ -267,6 +270,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
 
+    private static boolean colorCheck(Color color1, Color color2, int tolerance) {
+        return Math.abs(color1.getRed() - color2.getRed()) <= tolerance &&
+                Math.abs(color1.getGreen() - color2.getGreen()) <= tolerance &&
+                Math.abs(color1.getBlue() - color2.getBlue()) <= tolerance;
+    }
 
 
 
