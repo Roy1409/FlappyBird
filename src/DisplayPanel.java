@@ -10,6 +10,8 @@ import java.awt.Rectangle;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
+    private Rectangle q;
+    private Rectangle q2;
     private BufferedImage pipe2;
     private BufferedImage background;
     private BufferedImage pipe;
@@ -174,10 +176,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
-if (areImagesTouching(bird2,pipes,201,200,150,1000)) {
-    d=true;
-    System.out.println("touch");
-}
+Color o= new Color(117,192,43);
+if (isImageTouchingColor("src\\bird2.png",o)) {
+            System.out.println("TOUCH");
+        }
 
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
@@ -286,17 +288,30 @@ if (areImagesTouching(bird2,pipes,201,200,150,1000)) {
 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
+    public static boolean isImageTouchingColor(String imagePath, Color targetColor) {
+        try {
+            File imageFile = new File(imagePath);
+            BufferedImage image = ImageIO.read(imageFile);
 
-    public static boolean areImagesTouching(BufferedImage image1, BufferedImage image2, int x1, int y1, int x2, int y2) {
-        Rectangle rect1 = new Rectangle(x1, y1, image1.getWidth(), image1.getHeight());
-        Rectangle rect2 = new Rectangle(x2, y2, image2.getWidth(), image2.getHeight());
+            int width = image.getWidth();
+            int height = image.getHeight();
 
-        if (!rect1.intersects(rect2)) {
-            return false; // No intersection, images are not touching
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = image.getRGB(x, y);
+                    Color pixelColor = new Color(rgb);
+
+                    if (pixelColor.equals(targetColor)) {
+                        return true; // Image touches the color
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return true;
+        return false; // Image does not touch the color
     }
+
 
 }
 
