@@ -5,9 +5,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.security.Key;
 import javax.swing.JButton;
-
+import java.awt.Rectangle;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
@@ -168,6 +167,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
+if (areImagesTouching(bird2,pipes,201,200,150,1000)) {
+    d=true;
+    System.out.println("touch");
+}
 
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
@@ -270,13 +273,16 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
 
-    private static boolean colorCheck(Color color1, Color color2, int tolerance) {
-        return Math.abs(color1.getRed() - color2.getRed()) <= tolerance &&
-                Math.abs(color1.getGreen() - color2.getGreen()) <= tolerance &&
-                Math.abs(color1.getBlue() - color2.getBlue()) <= tolerance;
+    public static boolean areImagesTouching(BufferedImage image1, BufferedImage image2, int x1, int y1, int x2, int y2) {
+        Rectangle rect1 = new Rectangle(x1, y1, image1.getWidth(), image1.getHeight());
+        Rectangle rect2 = new Rectangle(x2, y2, image2.getWidth(), image2.getHeight());
+
+        if (!rect1.intersects(rect2)) {
+            return false; // No intersection, images are not touching
+        }
+
+        return true;
     }
-
-
 
 }
 
