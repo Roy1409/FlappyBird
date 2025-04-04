@@ -175,15 +175,18 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
+        int x=bird2.getWidth();
+        int y=bird2.getHeight();
+        Rectangle bird2=new Rectangle(bird2X,bird2Y,x,y);
 
 
-        Rectangle bird2= new Rectangle(bird2X,bird2Y,)
 
 
-            if (a && b) {
-                System.out.println("TOUCH");
-                d = true;
-            }
+
+            //if (a && b) {
+                //System.out.println("TOUCH");
+               // d = true; }
+            //
 
 
         if (e.getSource() instanceof JButton) {
