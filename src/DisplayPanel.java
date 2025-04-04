@@ -177,7 +177,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     public void actionPerformed(ActionEvent e) {
 
 
-        Rectangle bird2= new Rectangle(bird2X,bird2
+        Rectangle bird2= new Rectangle(bird2X,bird2Y,)
 
 
             if (a && b) {
