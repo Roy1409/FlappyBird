@@ -245,13 +245,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             }
 
             if (h) {
-                bird2Y -= 40;
+                bird2Y -= 60;
                 h = false;
             }
 
             if (b && !d) {
                 f = true;
-                bird2Y += 2;
+                bird2Y += 5;
                 pipesX -= 10;
                 pipesBX -=10;
             }
