@@ -177,9 +177,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     public void actionPerformed(ActionEvent e) {
 Color o= new Color(117,192,43);
-if (isImageTouchingColor("src\\bird2.png",o)) {
-            System.out.println("TOUCH");
-        }
+
+if (isImageTouchingColor("src\\bird2.png",o,42)) {
+    if (a && b ){
+        System.out.println("TOUCH");
+        d=true; }
+            }
 
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
@@ -288,7 +291,7 @@ if (isImageTouchingColor("src\\bird2.png",o)) {
 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
-    public static boolean isImageTouchingColor(String imagePath, Color targetColor) {
+    public static boolean isImageTouchingColor(String imagePath, Color targetColor, int tolerance) {
         try {
             File imageFile = new File(imagePath);
             BufferedImage image = ImageIO.read(imageFile);
@@ -301,15 +304,23 @@ if (isImageTouchingColor("src\\bird2.png",o)) {
                     int rgb = image.getRGB(x, y);
                     Color pixelColor = new Color(rgb);
 
-                    if (pixelColor.equals(targetColor)) {
-                        return true; // Image touches the color
+                    if (isColorClose(pixelColor, targetColor, tolerance)) {
+                        return true;
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; // Image does not touch the color
+        return false;
+    }
+
+    public static boolean isColorClose(Color color1, Color color2, int tolerance) {
+        int redDiff = Math.abs(color1.getRed() - color2.getRed());
+        int greenDiff = Math.abs(color1.getGreen() - color2.getGreen());
+        int blueDiff = Math.abs(color1.getBlue() - color2.getBlue());
+
+        return redDiff <= tolerance && greenDiff <= tolerance && blueDiff <= tolerance;
     }
 
 
