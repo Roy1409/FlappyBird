@@ -26,11 +26,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage shop;
     private BufferedImage floor;
     private BufferedImage pipes;
-    private BufferedImage pipes2;
+    private BufferedImage pipesBottom;
     private boolean d;
     private JLabel y;
     private int pipesX;
     private int pipesY;
+    private int pipesBX;
+    private int pipesBY;
     private int birdX;
     private BufferedImage shopButton;
     private int floorX;
@@ -53,7 +55,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         birdX=200;
         birdY=100;
         pipesX = 750;
+        pipesBX = 750;
         pipesY = -300;
+        pipesBY = pipesY + 600;
         button = new JButton("");
         button2= new JButton("");
         button.setOpaque(false);
@@ -87,6 +91,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             background = ImageIO.read(new File("src\\a.png"));
             gameOver=ImageIO.read(new File("src\\gameOver.png"));
             pipes = ImageIO.read(new File("src\\pipes.png"));
+            pipesBottom = ImageIO.read(new File("src\\pipesbottom.png"));
             img =ImageIO.read(new File("src\\bird.png"));
             pipe = ImageIO.read(new File("src\\pipe.png"));
             pipe2 = ImageIO.read(new File("src\\pipe2.png"));
@@ -156,6 +161,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
+            g.drawImage(pipesBottom, pipesBX, pipesBY, null);
             System.out.println(score);
         }
         g.drawImage(floor,floorX,460, null);
@@ -169,10 +175,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
-        int x=bird2.getWidth()-70;
-        int y=bird2.getHeight()-70;
-        int x1=pipes.getWidth()-70;
-        int y1=pipes.getHeight()-70;
+        int x=bird2.getWidth()-50;
+        int y=bird2.getHeight()-50;
+        int x1=pipes.getWidth()-50;
+        int y1=pipes.getHeight()-10;
+        int x3=pipesBottom.getWidth()-50;
+        int y3=pipesBottom.getHeight()-10;
         Rectangle bird2=new Rectangle(bird2X,bird2Y,x,y);
         Rectangle pipesTop=new Rectangle(pipesX,pipesY,x1,y1);
 
@@ -208,6 +216,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 score = "0";
                 pipesX = 750;
                 pipesY = -300;
+                pipesBX = 750;
+                pipesBY = pipesY + 600;
 
             }
         }
@@ -215,14 +225,15 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if (e.getSource() instanceof Timer) {
             floorX -= 4;
-
             if (pipesX == bird2X) {
                 score = Integer.toString(Integer.parseInt(score) + 1);
             }
 
             if (pipesX < -100) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
+                pipesBY = pipesY + 600;
                 pipesX = 750;
+                pipesBX = 750;
             }
 
             if (birdX > 750) {
@@ -242,6 +253,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 f = true;
                 bird2Y += 2;
                 pipesX -= 10;
+                pipesBX -=10;
             }
         }
 
