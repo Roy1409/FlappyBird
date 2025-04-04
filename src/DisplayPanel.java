@@ -180,8 +180,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         Rectangle pipes2Area = new Rectangle(pipes2X, pipes2Y, pipes2.getWidth(), pipes2.getHeight());
 
 
-        if (isImageTouchingColor("src\\pipes.png", new Color(117, 192, 43), 75, pipesArea) ||
-                isImageTouchingColor("src\\pipes2.png", new Color(117, 192, 43), 75, pipes2Area)) {
+        if (isImageTouchingColor("src\\bird2.png", new Color(117, 192, 43), 75, pipesArea) ||
+                isImageTouchingColor("src\\bird2.png", new Color(117, 192, 43), 75, pipes2Area)) {
             if (a && b) {
                 System.out.println("TOUCH");
                 d = true;
@@ -297,8 +297,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     public void mousePressed(MouseEvent e) { } // leave empty; don't need this one
 
-    // when the user clicks either mouse button (left or right),
-    // this method is called by the system when the user lets go of the mouse button
 
     public void mouseReleased(MouseEvent e) {
     }
