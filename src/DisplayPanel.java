@@ -171,16 +171,17 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     public void actionPerformed(ActionEvent e) {
         int x=bird2.getWidth();
         int y=bird2.getHeight();
+        int x1=pipes.getWidth();
+        int y1=pipes.getHeight();
         Rectangle bird2=new Rectangle(bird2X,bird2Y,x,y);
+        Rectangle pipesTop=new Rectangle(pipesX,pipesY,x1,y1);
 
 
+        if (bird2.intersects(pipesTop)) {
+            if (a && b) {
+                System.out.println("TOUCH");
+                d = true; } }
 
-
-
-            //if (a && b) {
-                //System.out.println("TOUCH");
-               // d = true; }
-            //
 
 
         if (e.getSource() instanceof JButton) {
@@ -207,9 +208,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 score = "0";
                 pipesX = 750;
                 pipesY = -300;
-
-
-
 
             }
         }
