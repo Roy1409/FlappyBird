@@ -162,7 +162,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
             g.drawImage(pipesBottom, pipesBX, pipesBY, null);
-            System.out.println(score);
         }
         g.drawImage(floor,floorX,460, null);
 
@@ -179,8 +178,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         int y=bird2.getHeight()-50;
         int x1=pipes.getWidth()-50;
         int y1=pipes.getHeight()-10;
-        int x3=pipesBottom.getWidth()-50;
-        int y3=pipesBottom.getHeight()-10;
+        int x3=pipesBottom.getWidth();
+        int y3=pipesBottom.getHeight()+75;
         Rectangle bird2=new Rectangle(bird2X,bird2Y,x,y);
         Rectangle pipesTop=new Rectangle(pipesX,pipesY,x1,y1);
         Rectangle pipesBottom= new Rectangle(pipesBX,pipesBY,x3,y3);
@@ -188,7 +187,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom)) {
             if (a && b) {
-                System.out.println("TOUCH");
                 d = true; } }
 
 
@@ -209,7 +207,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 repaint();
             }
             else if (casted == button2) {
-                System.out.println("Try Again clicked");
                 bird2Y = 150;
                 b = false;
                 d = false;
