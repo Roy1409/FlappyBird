@@ -183,9 +183,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         int y3=pipesBottom.getHeight()-10;
         Rectangle bird2=new Rectangle(bird2X,bird2Y,x,y);
         Rectangle pipesTop=new Rectangle(pipesX,pipesY,x1,y1);
+        Rectangle pipesBottom= new Rectangle(pipesBX,pipesBY,x3,y3);
 
 
-        if (bird2.intersects(pipesTop)) {
+        if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom)) {
             if (a && b) {
                 System.out.println("TOUCH");
                 d = true; } }
