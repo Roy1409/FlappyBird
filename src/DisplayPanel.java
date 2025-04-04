@@ -10,8 +10,7 @@ import java.awt.Rectangle;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
-    private Rectangle q;
-    private Rectangle q2;
+
     private BufferedImage pipe2;
     private BufferedImage background;
     private BufferedImage pipe;
@@ -176,84 +175,103 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
-Color o= new Color(117,192,43);
 
-if (isImageTouchingColor("src\\bird2.png",o,42)) {
-    if (a && b ){
-        System.out.println("TOUCH");
-        d=true; }
+        Rectangle pipesArea = new Rectangle(pipesX, pipesY, pipes.getWidth(), pipes.getHeight());
+        Rectangle pipes2Area = new Rectangle(pipes2X, pipes2Y, pipes2.getWidth(), pipes2.getHeight());
+
+
+        if (isImageTouchingColor("src\\pipes.png", new Color(117, 192, 43), 75, pipesArea) ||
+                isImageTouchingColor("src\\pipes2.png", new Color(117, 192, 43), 75, pipes2Area)) {
+            if (a && b) {
+                System.out.println("TOUCH");
+                d = true;
             }
+        }
 
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
-            if (casted==button) {
-                a= true;
+            if (casted == button) {
+                a = true;
                 remove(button);
                 remove(button1);
-
-            } else
-            if (casted==button1) {
-                a=false;
-                c=true;
-                remove(button);
-                remove(button1);
-
+                repaint();
             }
-            if(casted==button2) {
-                bird2Y=150;
-                b=false;
-                d=false;
-                score="0";
-                pipesX=750;
-                pipes2X=900;
+            else if (casted == button1) {
+                a = false;
+                c = true;
+                remove(button);
+                remove(button1);
+                repaint();
+            }
+            else if (casted == button2) {
+                System.out.println("Try Again clicked");
+
+                bird2Y = 150;
+                b = false;
+                d = false;
+                score = "0";
+                pipesX = 750;
+                pipes2X = 900;
+                pipesY = -300;
+                pipes2Y = (int) (Math.random() * (-400 - (-200) + 1) + (-200)); // Randomize new pipe Y position
+
+
+
+
             }
         }
 
-        if(e.getSource() instanceof Timer){
 
+        if (e.getSource() instanceof Timer) {
+            floorX -= 4;
 
-
-
-            floorX-=4;
-            if (pipesX == bird2X){
-                score=Integer.toString(Integer.parseInt(score)+1);
+            if (pipesX == bird2X) {
+                score = Integer.toString(Integer.parseInt(score) + 1);
             }
-            if (pipes2X < -200){
+
+            if (pipes2X < -200) {
                 pipes2Y = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
-                pipes2X =  900;
+                pipes2X = 900;
             }
-            if (pipesX < -100){
+
+            if (pipesX < -100) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 pipesX = 750;
             }
-            if (birdX>750) {
-                birdX=100;
+
+            if (birdX > 750) {
+                birdX = 100;
             }
-            if (floorX<-400) {
-                floorX=-1;
+
+            if (floorX < -400) {
+                floorX = -1;
             }
 
             if (h) {
-                bird2Y-=40;
-                h=false;
+                bird2Y -= 40;
+                h = false;
             }
-            if (b &&!d) {
-                f=true;
-                bird2Y+=2;
-                pipesX-=10;
-                pipes2X-=10;
+
+            if (b && !d) {
+                f = true;
+                bird2Y += 2;
+                pipesX -= 10;
+                pipes2X -= 10;
             }
         }
-        if (bird2Y==340) {
-            d=true;
+
+
+        if (bird2Y == 340) {
+            d = true;
         }
-        if (birdY==16) {
-            birdY-=9;
+        if (birdY == 16) {
+            birdY -= 9;
         }
 
         repaint();
         requestFocusInWindow();
     }
+
 
     public void keyTyped(KeyEvent e) { }
 
@@ -291,7 +309,7 @@ if (isImageTouchingColor("src\\bird2.png",o,42)) {
 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
-    public static boolean isImageTouchingColor(String imagePath, Color targetColor, int tolerance) {
+    public static boolean isImageTouchingColor(String imagePath, Color targetColor, int tolerance, Rectangle targetArea) {
         try {
             File imageFile = new File(imagePath);
             BufferedImage image = ImageIO.read(imageFile);
@@ -299,8 +317,18 @@ if (isImageTouchingColor("src\\bird2.png",o,42)) {
             int width = image.getWidth();
             int height = image.getHeight();
 
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
+            int startX = targetArea.x;
+            int startY = targetArea.y;
+            int endX = startX + targetArea.width;
+            int endY = startY + targetArea.height;
+
+            startX = Math.max(0, startX);
+            startY = Math.max(0, startY);
+            endX = Math.min(width, endX);
+            endY = Math.min(height, endY);
+
+            for (int y = startY; y < endY; y++) {
+                for (int x = startX; x < endX; x++) {
                     int rgb = image.getRGB(x, y);
                     Color pixelColor = new Color(rgb);
 
@@ -320,8 +348,9 @@ if (isImageTouchingColor("src\\bird2.png",o,42)) {
         int greenDiff = Math.abs(color1.getGreen() - color2.getGreen());
         int blueDiff = Math.abs(color1.getBlue() - color2.getBlue());
 
-        return redDiff <= tolerance && greenDiff <= tolerance && blueDiff <= tolerance;
+        return (greenDiff <= tolerance) && (redDiff <= tolerance) && (blueDiff <= tolerance);
     }
+
 
 
 }
