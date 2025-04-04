@@ -31,8 +31,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private JLabel y;
     private int pipesX;
     private int pipesY;
-    private int pipes2X;
-    private int pipes2Y;
     private int birdX;
     private BufferedImage shopButton;
     private int floorX;
@@ -56,8 +54,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         birdY=100;
         pipesX = 750;
         pipesY = -300;
-        pipes2X = 900;
-        pipes2Y = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
         button = new JButton("");
         button2= new JButton("");
         button.setOpaque(false);
@@ -91,7 +87,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             background = ImageIO.read(new File("src\\a.png"));
             gameOver=ImageIO.read(new File("src\\gameOver.png"));
             pipes = ImageIO.read(new File("src\\pipes.png"));
-            pipes2 =  ImageIO.read(new File("src\\pipes2.png"));
             img =ImageIO.read(new File("src\\bird.png"));
             pipe = ImageIO.read(new File("src\\pipe.png"));
             pipe2 = ImageIO.read(new File("src\\pipe2.png"));
@@ -160,7 +155,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             y.setText(score);
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(floor,floorX,460, null);
-            g.drawImage(pipes2, pipes2X, pipes2Y, null);
             g.drawImage(pipes, pipesX, pipesY, null);
             System.out.println(score);
         }
@@ -212,9 +206,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 d = false;
                 score = "0";
                 pipesX = 750;
-                pipes2X = 900;
                 pipesY = -300;
-                pipes2Y = (int) (Math.random() * (-400 - (-200) + 1) + (-200)); // Randomize new pipe Y position
 
 
 
@@ -228,11 +220,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             if (pipesX == bird2X) {
                 score = Integer.toString(Integer.parseInt(score) + 1);
-            }
-
-            if (pipes2X < -200) {
-                pipes2Y = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
-                pipes2X = 900;
             }
 
             if (pipesX < -100) {
@@ -257,7 +244,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 f = true;
                 bird2Y += 2;
                 pipesX -= 10;
-                pipes2X -= 10;
             }
         }
 
