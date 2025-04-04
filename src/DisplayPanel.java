@@ -176,17 +176,15 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     public void actionPerformed(ActionEvent e) {
 
-        Rectangle pipesArea = new Rectangle(pipesX, pipesY, pipes.getWidth(), pipes.getHeight());
-        Rectangle pipes2Area = new Rectangle(pipes2X, pipes2Y, pipes2.getWidth(), pipes2.getHeight());
+
+        Rectangle bird2= new Rectangle(bird2X,bird2
 
 
-        if (isImageTouchingColor("src\\bird2.png", new Color(117, 192, 43), 75, pipesArea) ||
-                isImageTouchingColor("src\\bird2.png", new Color(117, 192, 43), 75, pipes2Area)) {
             if (a && b) {
                 System.out.println("TOUCH");
                 d = true;
             }
-        }
+
 
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
@@ -307,47 +305,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
 
-    public static boolean isImageTouchingColor(String imagePath, Color targetColor, int tolerance, Rectangle targetArea) {
-        try {
-            File imageFile = new File(imagePath);
-            BufferedImage image = ImageIO.read(imageFile);
-
-            int width = image.getWidth();
-            int height = image.getHeight();
-
-            int startX = targetArea.x;
-            int startY = targetArea.y;
-            int endX = startX + targetArea.width;
-            int endY = startY + targetArea.height;
-
-            startX = Math.max(0, startX);
-            startY = Math.max(0, startY);
-            endX = Math.min(width, endX);
-            endY = Math.min(height, endY);
-
-            for (int y = startY; y < endY; y++) {
-                for (int x = startX; x < endX; x++) {
-                    int rgb = image.getRGB(x, y);
-                    Color pixelColor = new Color(rgb);
-
-                    if (isColorClose(pixelColor, targetColor, tolerance)) {
-                        return true;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean isColorClose(Color color1, Color color2, int tolerance) {
-        int redDiff = Math.abs(color1.getRed() - color2.getRed());
-        int greenDiff = Math.abs(color1.getGreen() - color2.getGreen());
-        int blueDiff = Math.abs(color1.getBlue() - color2.getBlue());
-
-        return (greenDiff <= tolerance) && (redDiff <= tolerance) && (blueDiff <= tolerance);
-    }
 
 
 
