@@ -209,7 +209,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             }
             else if (casted == button2) {
                 System.out.println("Try Again clicked");
-
                 bird2Y = 150;
                 b = false;
                 d = false;
@@ -218,7 +217,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 pipesY = -300;
                 pipesBX = 750;
                 pipesBY = pipesY + 600;
-
+                remove(button2);
             }
         }
 
@@ -260,6 +259,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if (bird2Y == 420) {
                 d=true;
+                add(button2);
 
         }
         if (birdY == 16) {
