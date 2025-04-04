@@ -27,12 +27,18 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage floor;
     private BufferedImage pipes;
     private BufferedImage pipesBottom;
+    private BufferedImage top;
+    private BufferedImage bottom;
     private boolean d;
     private JLabel y;
     private int pipesX;
     private int pipesY;
     private int pipesBX;
     private int pipesBY;
+    private int topX;
+    private int topY;
+    private int bottomX;
+    private int bottomY;
     private int birdX;
     private BufferedImage shopButton;
     private int floorX;
@@ -54,10 +60,17 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         bird2X=150;
         birdX=200;
         birdY=100;
+
         pipesX = 750;
         pipesBX = 750;
         pipesY = -300;
         pipesBY = pipesY + 600;
+
+        topX = 1200;
+        bottomX = 1200;
+        topY = -300;
+        bottomY = topY + 600;
+
         button = new JButton("");
         button2= new JButton("");
         button.setOpaque(false);
@@ -92,6 +105,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             gameOver=ImageIO.read(new File("src\\gameOver.png"));
             pipes = ImageIO.read(new File("src\\pipes.png"));
             pipesBottom = ImageIO.read(new File("src\\pipesbottom.png"));
+            top = ImageIO.read(new File("src\\top.png"));
+            bottom = ImageIO.read(new File("src\\bottom.png"));
             img =ImageIO.read(new File("src\\bird.png"));
             pipe = ImageIO.read(new File("src\\pipe.png"));
             pipe2 = ImageIO.read(new File("src\\pipe2.png"));
@@ -162,6 +177,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
             g.drawImage(pipesBottom, pipesBX, pipesBY, null);
+            g.drawImage(top, topX, topY, null);
+            g.drawImage(bottom, bottomX, bottomY, null);
         }
         g.drawImage(floor,floorX,460, null);
 
@@ -187,6 +204,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom)) {
             if (a && b) {
+                System.out.println("TOUCH");
                 d = true; } }
 
 
@@ -207,6 +225,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 repaint();
             }
             else if (casted == button2) {
+                System.out.println("Try Again clicked");
                 bird2Y = 150;
                 b = false;
                 d = false;
@@ -215,22 +234,30 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 pipesY = -300;
                 pipesBX = 750;
                 pipesBY = pipesY + 600;
+
+                topX = 1200;
+                bottomX = 1200;
+                topY = -300;
+                bottomY = topY + 600;
                 remove(button2);
             }
         }
 
 
         if (e.getSource() instanceof Timer) {
-            floorX -= 4;
-            if (pipesX == bird2X) {
-                score = Integer.toString(Integer.parseInt(score) + 1);
-            }
+            floorX -= 5;
 
-            if (pipesX < -100) {
+            if (pipesX < -200) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 pipesBY = pipesY + 600;
-                pipesX = 750;
-                pipesBX = 750;
+                pipesX = 1200;
+                pipesBX = 1200;
+            }
+            if (topX < -200) {
+                topY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
+                bottomY = topY + 600;
+                topX = 750;
+                bottomX = 750;
             }
 
             if (birdX > 750) {
@@ -248,9 +275,17 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             if (b && !d) {
                 f = true;
+                if (pipesX == bird2X) {
+                    score = Integer.toString(Integer.parseInt(score) + 1);
+                }
+                if (topX == bird2X) {
+                    score = Integer.toString(Integer.parseInt(score) + 1);
+                }
                 bird2Y += 5;
-                pipesX -= 10;
-                pipesBX -=10;
+                pipesX -= 5;
+                pipesBX -= 5;
+                topX -= 5;
+                bottomX -= 5;
             }
         }
 
