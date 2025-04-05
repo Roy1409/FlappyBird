@@ -202,8 +202,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         int x5=bottom.getWidth();
         int y5=bottom.getHeight();
         Rectangle bird2=new Rectangle(bird2X,bird2Y,x0,y0);
-        Rectangle pipesTop=new Rectangle(pipesX,pipesY,x1,y1);
-        Rectangle pipesBottom= new Rectangle(pipesBX,pipesBY,x3,y3);
+        Rectangle pipesTop=new Rectangle(pipesX-35,pipesY,x1,y1);
+        Rectangle pipesBottom= new Rectangle(pipesBX-35,pipesBY-30,x3,y3);
         Rectangle pipes2Top= new Rectangle(topX,topY,x4,y4);
         Rectangle pipes2bottom= new Rectangle(bottomX,bottomY,x5,y5);
 
