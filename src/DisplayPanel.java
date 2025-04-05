@@ -191,18 +191,26 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
 
     public void actionPerformed(ActionEvent e) {
-        int x=bird2.getWidth()-50;
-        int y=bird2.getHeight()-50;
+        int x0=bird2.getWidth()-50;
+        int y0=bird2.getHeight()-50;
         int x1=pipes.getWidth()-50;
         int y1=pipes.getHeight()-10;
-        int x3=pipesBottom.getWidth()+50;
-        int y3=pipesBottom.getHeight()+150;
-        Rectangle bird2=new Rectangle(bird2X,bird2Y,x,y);
+        int x3=pipesBottom.getWidth();
+        int y3=pipesBottom.getHeight();
+        int x4=top.getWidth();
+        int y4=top.getHeight();
+        int x5=bottom.getWidth();
+        int y5=bottom.getHeight();
+        Rectangle bird2=new Rectangle(bird2X,bird2Y,x0,y0);
         Rectangle pipesTop=new Rectangle(pipesX,pipesY,x1,y1);
         Rectangle pipesBottom= new Rectangle(pipesBX,pipesBY,x3,y3);
+        Rectangle pipes2Top= new Rectangle(topX,topY,x4,y4);
+        Rectangle pipes2bottom= new Rectangle(bottomX,bottomY,x5,y5);
+
+        repaint();
 
 
-        if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom)) {
+        if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom) || bird2.intersects(pipes2Top) || bird2.intersects(pipes2bottom)) {
             if (a && b) {
                 System.out.println("TOUCH");
                 d = true; } }
