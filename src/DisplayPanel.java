@@ -258,14 +258,14 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             if (pipesX < -200) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 pipesBY = pipesY + 600;
-                pipesX = 1200;
-                pipesBX = 1200;
+                pipesX = topX + 450;
+                pipesBX = bottomX + 450;
             }
             if (topX < -200) {
                 topY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 bottomY = topY + 600;
-                topX = 750;
-                bottomX = 750;
+                topX = pipesX + 450;
+                bottomX = pipesBX + 450;
             }
 
             if (birdX > 750) {
@@ -289,7 +289,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 if (topX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
-                bird2Y += 5;
+                bird2Y +=  5;
                 pipesX -= 5;
                 pipesBX -= 5;
                 topX -= 5;
