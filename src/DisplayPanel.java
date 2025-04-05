@@ -68,12 +68,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         bird2X=150;
         birdX=200;
         birdY=100;
-
         pipesX = 750;
         pipesBX = 750;
         pipesY = -300;
         pipesBY = pipesY + 600;
-
         topX = 1200;
         bottomX = 1200;
         topY = -300;
@@ -101,7 +99,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button2.setBorderPainted(true);
         button2.setBorder(null);
         button2.addActionListener(this);
-
         button3.addActionListener(this);
         button3.setOpaque(false);
         button3.setContentAreaFilled(false);
@@ -111,8 +108,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button3.addActionListener(this);
         button4.addActionListener(this);
         button4.setFocusable(false);
-
-
 
         try {
             save = ImageIO.read(new File("src\\save.png"));
@@ -143,7 +138,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         add(button1);
         y.setVisible(false);
         textField = new JTextField(20);
-
         time= new Timer(15,this);
         time.start();
         addKeyListener(this);
@@ -158,7 +152,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         g.setColor(Color.RED);
         g.drawImage(background, 0, -100, null);g.drawImage(background, 0, -100, null);
         if (!a && !c){
-
             g.drawImage(pipe,450,300,null);
             g.drawImage(pipe2,375,-150,null);
             g.drawImage(logo,75,50,null);
@@ -166,18 +159,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(img,birdX,birdY,null);
             g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
-
             y.setSize(200,200);
             y.setFont(new Font("Courier", Font.BOLD,75));
             button.setSize(300,110 );
-
             button.setLocation(80,300);
-
-
             button1.setSize(150,150 );
-
             button1.setLocation(360,280);
-
             button2.setSize(200,111);
             button2.setLocation(250,250);
             button3.setSize(150,150);
@@ -191,7 +178,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if (a) {
             if (!b) {
                 g.drawImage(space,250,50,null);
-
             }
             y.setVisible(true);
             y.setText(score);
@@ -207,9 +193,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if (d ) {
             this.add(button2);
             this.add(button3);
-
             g.drawImage(save,75,220,null);
-
             g.drawImage(gameOver,135,100,null);
             g.drawImage (tryAgain,250,250,null);
         }
@@ -218,7 +202,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawString(message,225,100);
         }
     }
-
 
     public void actionPerformed(ActionEvent e) {
         int x0=bird2.getWidth()-50;
@@ -236,17 +219,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         Rectangle pipesBottom= new Rectangle(pipesBX-35,pipesBY-30,x3,y3);
         Rectangle pipes2Top= new Rectangle(topX,topY,x4,y4);
         Rectangle pipes2bottom= new Rectangle(bottomX,bottomY,x5,y5);
-
         repaint();
-
-
         if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom) || bird2.intersects(pipes2Top) || bird2.intersects(pipes2bottom)) {
             if (a && b) {
                 System.out.println("TOUCH");
                 d = true; } }
-
-
-
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
             if (casted == button) {
@@ -293,10 +270,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 textField.requestFocusInWindow();
                 add(textField);
                 remove(button3);
-
                 System.out.println("CLICKED");
-
-
             }
             if (casted==button4) {
                 if (!(textField.getText().isEmpty())) {
@@ -309,11 +283,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 }
             }
         }
-
-
         if (e.getSource() instanceof Timer) {
             floorX -= 5;
-
             if (pipesX < -200) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 pipesBY = pipesY + 600;
@@ -326,20 +297,16 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 topX = pipesX + 450;
                 bottomX = pipesBX + 450;
             }
-
             if (birdX > 750) {
                 birdX = 100;
             }
-
             if (floorX < -400) {
                 floorX = -1;
             }
-
             if (h) {
                 bird2Y -= 60;
                 h = false;
             }
-
             if (b && !d) {
                 f = true;
                 if (pipesX == bird2X) {
@@ -355,26 +322,19 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 bottomX -= 5;
             }
         }
-
-
         if (bird2Y == 420) {
                 d=true;
                 add(button2);
-
         }
         if (birdY == 16) {
             birdY -= 9;
         }
-
         repaint();
         if (p) {
-            //textField.requestFocusInWindow();
+            //do nothing
         } else{
-
-
         requestFocusInWindow(); }
     }
-
 
     public void keyTyped(KeyEvent e) { }
 
@@ -385,34 +345,21 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             h=true;
         }
-
         requestFocusInWindow();
-
     }
-
-
     public void keyReleased(KeyEvent e) { }
-
     // must add all 5 of the following methods, which are required by MouseListener interface
-
     public void mouseClicked(MouseEvent e) {
     } // leave empty; don't need this one
 
-
     public void mousePressed(MouseEvent e) { } // leave empty; don't need this one
-
 
     public void mouseReleased(MouseEvent e) {
     }
 
-
     public void mouseEntered(MouseEvent e) { } // leave empty; don't need this one
 
-
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
-
-
-
 
 }
 
