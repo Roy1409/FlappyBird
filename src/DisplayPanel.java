@@ -263,7 +263,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 repaint();
             }
             else if (casted == button2) {
-
+            p=false;
                 textField.setVisible(false);
                 System.out.println("Try Again clicked");
                 bird2Y = 150;
