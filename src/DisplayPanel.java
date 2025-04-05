@@ -10,15 +10,17 @@ import java.awt.Rectangle;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
-
+    private JTextField textField;
     private BufferedImage pipe2;
     private BufferedImage background;
     private BufferedImage pipe;
     private BufferedImage img;
     private BufferedImage logo;
     private BufferedImage start;
+    private int saveScore;
     private boolean f;
     private boolean h;
+    private JButton button3;
 
     private BufferedImage tryAgain;
     private BufferedImage bird2;
@@ -30,6 +32,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage top;
     private BufferedImage bottom;
     private boolean d;
+    private BufferedImage save;
     private JLabel y;
     private int pipesX;
     private int pipesY;
@@ -72,14 +75,15 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         bottomY = topY + 600;
 
         button = new JButton("");
+        button1 = new JButton("");
         button2= new JButton("");
+        button3= new JButton("");
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setFocusable(false);
         button.setBorderPainted(true);
         button.setBorder(null);
         button.addActionListener(this);
-        button1 = new JButton("");
         button1.setOpaque(false);
         button1.setContentAreaFilled(false);
         button1.setFocusable(false);
@@ -93,10 +97,18 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button2.setBorder(null);
         button2.addActionListener(this);
 
+        button3.addActionListener(this);
+        button3.setOpaque(false);
+        button3.setContentAreaFilled(false);
+        button3.setFocusable(false);
+        button3.setBorderPainted(true);
+        button3.setBorder(null);
+        button3.addActionListener(this);
 
 
 
         try {
+            save = ImageIO.read(new File("src\\save.png"));
             tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
             shopButton=ImageIO.read(new File("src\\shopButton.png"));
             bird2 = ImageIO.read(new File("src\\bird2.png"));
@@ -123,7 +135,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         add(y);
         add(button1);
         y.setVisible(false);
-
+        textField = new JTextField(20);
 
         time= new Timer(15,this);
         time.start();
@@ -161,6 +173,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
             button2.setSize(200,111);
             button2.setLocation(250,250);
+            button3.setSize(150,150);
+            button3.setLocation(75,220);
 
         } else if (c)
         {
@@ -184,6 +198,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
 
         if (d ) {
             this.add(button2);
+            this.add(button3);
+
+            g.drawImage(save,75,220,null);
+
             g.drawImage(gameOver,135,100,null);
             g.drawImage (tryAgain,250,250,null);
         }
@@ -237,6 +255,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 bird2Y = 150;
                 b = false;
                 d = false;
+                saveScore=Integer.parseInt(score);
                 score = "0";
                 pipesX = 750;
                 pipesY = -300;
@@ -246,8 +265,22 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 topX = 1200;
                 bottomX = 1200;
                 topY = -300;
-                bottomY = topY + 600;
                 remove(button2);
+                bottomY = topY + 600;
+                repaint();
+            }
+            if (casted==button3)  {
+                textField.setSize(80,20);
+                textField.setLocation(300, 100);
+                textField.requestFocusInWindow();
+                add(textField);
+                String name=textField.getText();
+                Player a= new Player(name,saveScore);
+                repaint();
+                remove(button3);
+                System.out.println("CLICKED");
+                repaint();
+
             }
         }
 
@@ -320,6 +353,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             h=true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            String name=textField.getText();
+
         }
         requestFocusInWindow();
 
