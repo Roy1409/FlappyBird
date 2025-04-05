@@ -16,6 +16,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private String message;
     private BufferedImage pipe;
     private BufferedImage img;
+    private JButton button4;
     private boolean p;
     private BufferedImage logo;
     private BufferedImage start;
@@ -77,7 +78,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         bottomX = 1200;
         topY = -300;
         bottomY = topY + 600;
-
+        button4= new JButton("ENTER");
         button = new JButton("");
         button1 = new JButton("");
         button2= new JButton("");
@@ -108,6 +109,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button3.setBorderPainted(true);
         button3.setBorder(null);
         button3.addActionListener(this);
+        button4.addActionListener(this);
+        button4.setFocusable(false);
 
 
 
@@ -179,7 +182,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             button2.setLocation(250,250);
             button3.setSize(150,150);
             button3.setLocation(75,220);
-
+            button4.setLocation(250,150);
+            button4.setSize(200,50);
         } else if (c)
         {
             g.drawImage(shopButton,200,0,null);
@@ -275,11 +279,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 topX = 1200;
                 bottomX = 1200;
                 topY = -300;
+                remove(button4);
                 remove(button2);
                 bottomY = topY + 600;
                 repaint();
             }
             if (casted==button3)  {
+                add(button4);
                 textField.setVisible(true);
                 p=true;
                 textField.setSize(80,20);
@@ -287,9 +293,20 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 textField.requestFocusInWindow();
                 add(textField);
                 remove(button3);
+
                 System.out.println("CLICKED");
 
 
+            }
+            if (casted==button4) {
+                if (!(textField.getText().isEmpty())) {
+                    System.out.println("HI");
+                    message = "score saved on leaderboard";
+                    textField.setText("");
+                    String name = textField.getText();
+                    Player a = new Player(name, saveScore);
+                    requestFocusInWindow();
+                }
             }
         }
 
@@ -368,15 +385,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             h=true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("HI");
-            message="score saved on leaderboard";
-            textField.setText("");
-            String name=textField.getText();
-            Player a= new Player(name,saveScore);
-            p=false;
 
-        }
         requestFocusInWindow();
 
     }
