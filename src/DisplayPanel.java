@@ -209,7 +209,6 @@ private BufferedImage lb;
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
-            label.setVisible(true);
             y.setVisible(true);
             y.setText(score);
             label.setText("<html>CLICK R TO Reset<br>" + lbMessage + "</html>");
