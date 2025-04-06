@@ -71,11 +71,11 @@ private BufferedImage lb;
         pipesX = 750;
         pipesBX = 750;
         pipesY = -300;
-        pipesBY = pipesY + 600;
+        pipesBY = pipesY + 635;
         topX = 1200;
         bottomX = 1200;
         topY = -300;
-        bottomY = topY + 600;
+        bottomY = topY + 635;
         button4= new JButton("ENTER");
         button = new JButton("");
         button1 = new JButton("");
@@ -250,14 +250,14 @@ private BufferedImage lb;
                 pipesX = 750;
                 pipesY = -300;
                 pipesBX = 750;
-                pipesBY = pipesY + 600;
+                pipesBY = pipesY + 635;
 
                 topX = 1200;
                 bottomX = 1200;
                 topY = -300;
                 remove(button4);
                 remove(button2);
-                bottomY = topY + 600;
+                bottomY = topY + 635;
                 repaint();
             }
             if (casted==button3)  {
@@ -286,13 +286,13 @@ private BufferedImage lb;
             floorX -= 5;
             if (pipesX < -200) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
-                pipesBY = pipesY + 600;
+                pipesBY = pipesY + 635;
                 pipesX = topX + 450;
                 pipesBX = bottomX + 450;
             }
             if (topX < -200) {
                 topY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
-                bottomY = topY + 600;
+                bottomY = topY + 635;
                 topX = pipesX + 450;
                 bottomX = pipesBX + 450;
             }
