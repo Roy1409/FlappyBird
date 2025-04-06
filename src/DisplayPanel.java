@@ -23,14 +23,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private boolean p;
     private String lbMessage=" ";
     private boolean k;
-
     private BufferedImage logo;
     private BufferedImage start;
     private int saveScore;
     private boolean f;
     private JButton button3;
     private JLabel label;
-
     private BufferedImage tryAgain;
     private BufferedImage space;
     private BufferedImage shop;
@@ -68,8 +66,6 @@ private BufferedImage lb;
     private int bird2X;
     private String score;
     double rotationAngle = Math.toRadians(90);
-
-    // moving this to the class
     private BufferedImage bird2;
     private BufferedImage bird2up;
     private BufferedImage bird2down;
@@ -80,7 +76,7 @@ private BufferedImage lb;
     public DisplayPanel() {
          lbs =new leaderboard();
         playerList= new ArrayList<>();
-        message="Enter Name (then click enter):";
+        message="Enter Name to save score (then click enter):";
         score="0";
         floorX=0;
         animationFrame = 0;
@@ -97,7 +93,6 @@ private BufferedImage lb;
         bottomX = 1200;
         topY = -300;
         bottomY = topY + 635;
-
         button4= new JButton("ENTER");
         button = new JButton("");
         button1 = new JButton("");
@@ -173,7 +168,6 @@ private BufferedImage lb;
         setFocusable(true);
         requestFocusInWindow();
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -192,7 +186,6 @@ private BufferedImage lb;
             label.setFont(new Font("Courier", Font.BOLD,30));
             label.setSize(5,2);
             label.setLocation(0,100);
-
             y.setFont(new Font("Courier", Font.BOLD,75));
             button.setSize(300,110 );
             button.setLocation(80,300);
@@ -206,14 +199,12 @@ private BufferedImage lb;
             button4.setSize(200,50);
         }
         if (a) {
-
-
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
             y.setVisible(true);
             y.setText(score);
-            label.setText("<html>CLICK R TO Reset<br>" + lbMessage + "</html>");
+            label.setText("<html>CLICK R TO GO BACK<br>" + lbMessage + "</html>");
             g.drawImage(animation[animationFrame], bird2X, bird2Y, null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
@@ -223,7 +214,6 @@ private BufferedImage lb;
         }
         g.drawImage(floor,floorX,460, null);
         if (d && !c) {
-
             setLayout(null);
             this.add(button1);
             this.add(button2);
@@ -235,22 +225,26 @@ private BufferedImage lb;
             g.drawImage(gameOver,135,100,null);
             g.drawImage (tryAgain,250,250,null);
         }
-
         if (p) {
             g.drawString(message,225,100);
         }
-
     }
-
-
     public void actionPerformed(ActionEvent e) {
-        int birdWidth = animation[animationFrame].getWidth() - 10;
-        int birdHeight = animation[animationFrame].getHeight() - 10;
-        Rectangle bird2 = new Rectangle(bird2X + 5, bird2Y + 5, birdWidth, birdHeight);
-        Rectangle pipe1Top = new Rectangle(pipesX, pipesY, pipes.getWidth(), pipes.getHeight());
-        Rectangle pipe1Bottom = new Rectangle(pipesBX, pipesBY, pipesBottom.getWidth(), pipesBottom.getHeight());
-        Rectangle pipe2Top = new Rectangle(topX, topY, top.getWidth(), top.getHeight());
-        Rectangle pipe2Bottom = new Rectangle(bottomX, bottomY, bottom.getWidth(), bottom.getHeight());
+        int x0=bird2.getWidth()-50;
+        int y0=bird2.getHeight()-50;
+        int x1=pipes.getWidth()-50;
+        int y1=pipes.getHeight()-15;
+        int x3=pipesBottom.getWidth();
+        int y3=pipesBottom.getHeight()+15;
+        int x4=top.getWidth();
+        int y4=top.getHeight()-15;
+        int x5=bottom.getWidth();
+        int y5=bottom.getHeight()+15;
+        Rectangle bird2=new Rectangle(bird2X,bird2Y,x0,y0);
+        Rectangle pipesTop=new Rectangle(pipesX-35,pipesY,x1,y1);
+        Rectangle pipesBottom= new Rectangle(pipesBX-35,pipesBY-30,x3,y3);
+        Rectangle pipes2Top= new Rectangle(topX,topY,x4,y4);
+        Rectangle pipes2bottom= new Rectangle(bottomX,bottomY,x5,y5);
         repaint();
         if (bird2.intersects(pipe1Top) || bird2.intersects(pipe1Bottom) ||
                 bird2.intersects(pipe2Top) || bird2.intersects(pipe2Bottom)) {
@@ -269,7 +263,6 @@ private BufferedImage lb;
             else if (casted == button1) {
                 if (textField.isVisible()) {
                     textField.setVisible(false);
-
                 }
                 y.setVisible(false);
                 p=false;
@@ -285,15 +278,12 @@ private BufferedImage lb;
                     k=true;
                     label.setLocation(20,-200);
                     label.setSize(new Dimension(750, 750));  // Force label size
-label.setVisible(true);
-                    label.setText("<html>CLICK R TO Reset<br>"+lbMessage+"<html>");
-
-
-            }
-
+                    label.setVisible(true);
+                    label.setText("<html>CLICK R TO GO BACK<br>"+lbMessage+"<html>");
+                    }
             }
             else if (casted == button2) {
-            p=false;
+                p=false;
                 textField.setVisible(false);
                 System.out.println("Try Again clicked");
                 bird2Y = 150;
@@ -305,13 +295,13 @@ label.setVisible(true);
                 pipesY = -300;
                 pipesBX = 750;
                 pipesBY = pipesY + 635;
-
                 topX = 1200;
                 bottomX = 1200;
                 topY = -300;
                 remove(button4);
                 remove(button2);
                 bottomY = topY + 635;
+                message="Enter Name to save score (then click enter):";
             }
             if (casted==button3)  {
                 add(button4);
@@ -333,7 +323,6 @@ label.setVisible(true);
                     Player a = new Player(name, saveScore);
                     lbs.addData(a);
                     label.setText("<html>CLICK R TO GO BACK<br>"+lbMessage+"<html>");
-
                     requestFocusInWindow();
                 }
             }
@@ -359,9 +348,7 @@ label.setVisible(true);
                 floorX = -30;
             }
             if (b && !d) {
-
                 f = true;
-
                 if (pipesX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
@@ -389,7 +376,6 @@ label.setVisible(true);
         }
         if (bird2Y > 415) { // less than 415 because velocity goes to fast
                 d=true;
-
                 add(button2);
         }
         if (birdY == 16) {
@@ -401,7 +387,6 @@ label.setVisible(true);
         } else{
         requestFocusInWindow(); }
     }
-
     public void keyTyped(KeyEvent e) { }
 
     public void keyPressed(KeyEvent e) {
@@ -412,9 +397,7 @@ label.setVisible(true);
             velocity = -8.8;
         }
 
-
         if (e.getKeyCode()== KeyEvent.VK_R) {
-
             a=true;
             b=false;
             label.setVisible(false);
@@ -430,8 +413,6 @@ label.setVisible(true);
             bottomX = 1200;
             topY = -300;
             bottomY = topY + 635;
-
-
             score="0";
             k=false;
         }
@@ -446,7 +427,6 @@ label.setVisible(true);
 
     public void mouseReleased(MouseEvent e) {
     }
-
     public void mouseEntered(MouseEvent e) { } // leave empty; don't need this one
 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
