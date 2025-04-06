@@ -191,7 +191,7 @@ private BufferedImage lb;
             button4.setSize(200,50);
         }
         if (a) {
-            g.drawString("PRESS R TO RETURN",100,25);
+
 
             if (!b) {
                 g.drawImage(space,250,50,null);
@@ -323,7 +323,7 @@ label.setVisible(true);
                     textField.setText("");
                     Player a = new Player(name, saveScore);
                     lbs.addData(a);
-                    label.setText("<html>CLICK R TO Reset<br>"+lbMessage+"<html>");
+                    label.setText("<html>CLICK R TO GO BACK<br>"+lbMessage+"<html>");
 
                     requestFocusInWindow();
                 }
