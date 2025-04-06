@@ -240,32 +240,24 @@ private BufferedImage lb;
             g.drawString(message,225,100);
         }
 
-
-
-
     }
 
 
     public void actionPerformed(ActionEvent e) {
-        int x0=bird2.getWidth()-50;
-        int y0=bird2.getHeight()-50;
-        int x1=pipes.getWidth()-50;
-        int y1=pipes.getHeight()-15;
-        int x3=pipesBottom.getWidth();
-        int y3=pipesBottom.getHeight()+15;
-        int x4=top.getWidth();
-        int y4=top.getHeight()-15;
-        int x5=bottom.getWidth();
-        int y5=bottom.getHeight()+15;
-        Rectangle bird2=new Rectangle(bird2X,bird2Y,x0,y0);
-        Rectangle pipesTop=new Rectangle(pipesX-35,pipesY,x1,y1);
-        Rectangle pipesBottom= new Rectangle(pipesBX-35,pipesBY-30,x3,y3);
-        Rectangle pipes2Top= new Rectangle(topX,topY,x4,y4);
-        Rectangle pipes2bottom= new Rectangle(bottomX,bottomY,x5,y5);
+        int birdWidth = animation[animationFrame].getWidth() - 10;
+        int birdHeight = animation[animationFrame].getHeight() - 10;
+        Rectangle bird2 = new Rectangle(bird2X + 5, bird2Y + 5, birdWidth, birdHeight);
+        Rectangle pipe1Top = new Rectangle(pipesX, pipesY, pipes.getWidth(), pipes.getHeight());
+        Rectangle pipe1Bottom = new Rectangle(pipesBX, pipesBY, pipesBottom.getWidth(), pipesBottom.getHeight());
+        Rectangle pipe2Top = new Rectangle(topX, topY, top.getWidth(), top.getHeight());
+        Rectangle pipe2Bottom = new Rectangle(bottomX, bottomY, bottom.getWidth(), bottom.getHeight());
         repaint();
-        if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom) || bird2.intersects(pipes2Top) || bird2.intersects(pipes2bottom)) {
+        if (bird2.intersects(pipe1Top) || bird2.intersects(pipe1Bottom) ||
+                bird2.intersects(pipe2Top) || bird2.intersects(pipe2Bottom)) {
             if (a && b) {
-                d = true; } }
+                d = true;
+            }
+        }
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
             if (casted == button) {
@@ -417,7 +409,7 @@ label.setVisible(true);
             b=true;
         }
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
-            velocity = -7.7;
+            velocity = -8.8;
         }
 
 
