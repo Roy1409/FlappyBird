@@ -218,8 +218,7 @@ private BufferedImage lb;
         if (p) {
             g.drawString(message,225,100);
         }
-        System.out.println(button2.getParent() != this && button2.isVisible());
-        System.out.println(button3.getParent() != this && button3.isVisible());
+
 
     }
 
@@ -243,7 +242,6 @@ private BufferedImage lb;
         repaint();
         if (bird2.intersects(pipesTop) || bird2.intersects(pipesBottom) || bird2.intersects(pipes2Top) || bird2.intersects(pipes2bottom)) {
             if (a && b) {
-                System.out.println("TOUCH");
                 d = true; } }
         if (e.getSource() instanceof JButton) {
             JButton casted = (JButton) e.getSource();
@@ -307,7 +305,6 @@ private BufferedImage lb;
                 textField.requestFocusInWindow();
                 add(textField);
                 remove(button3);
-                System.out.println("CLICKED");
             }
             if (casted==button4) {
                 if (!(textField.getText().isEmpty())) {
