@@ -19,8 +19,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage pipe;
     private BufferedImage img;
     private JButton button4;
+    private boolean u;
     private boolean p;
-    private String lbMessage;
+    private String lbMessage=" ";
     private boolean k;
     private BufferedImage logo;
     private BufferedImage start;
@@ -189,8 +190,10 @@ private BufferedImage lb;
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
+            label.setVisible(true);
             y.setVisible(true);
             y.setText(score);
+            label.setText("<html>CLICK R TO Reset<br>" + lbMessage + "</html>");
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
@@ -199,11 +202,13 @@ private BufferedImage lb;
             g.drawImage(bottom, bottomX, bottomY, null);
         }
         g.drawImage(floor,floorX,460, null);
-
         if (d && !c) {
+            setLayout(null);
             this.add(button1);
             this.add(button2);
             this.add(button3);
+            repaint();
+            revalidate();
             g.drawImage(lb,475,250,null);
             g.drawImage(save,75,220,null);
             g.drawImage(gameOver,135,100,null);
@@ -213,8 +218,10 @@ private BufferedImage lb;
         if (p) {
             g.drawString(message,225,100);
         }
+        System.out.println(button2.getParent() != this && button2.isVisible());
+        System.out.println(button3.getParent() != this && button3.isVisible());
 
-        }
+    }
 
 
     public void actionPerformed(ActionEvent e) {
@@ -258,17 +265,14 @@ private BufferedImage lb;
                 c=true;
                 remove(button);
                 remove(button1);
-                repaint();
+                u=true;
                 k=true;
-
                 if (playerList !=null) {
-
                     lbMessage="";
                 for (int i=0; i<playerList.size(); i++)  {
                     lbMessage+= "\n"+(i+1)+". Name: "+playerList.get(i).getName()+" Score: "+playerList.get(i).getScore()+"\n";
                 }
                     label.setText("<html>CLICK R TO RETURN<br>"+lbMessage+"<html>");
-                    label.setVisible(true);
             }
 
             }
@@ -359,6 +363,7 @@ private BufferedImage lb;
         }
         if (bird2Y == 420) {
                 d=true;
+
                 add(button2);
         }
         if (birdY == 16) {
@@ -384,6 +389,27 @@ private BufferedImage lb;
 
         if (e.getKeyCode()== KeyEvent.VK_R) {
 
+            a=true;
+            b=false;
+            label.setVisible(false);
+            h=true;
+            d=false;
+            c=false;
+            bird2Y=150;
+            bird2X=150;
+            pipesX = 750;
+            pipesBX = 750;
+            pipesY = -300;
+            pipesBY = pipesY + 635;
+            topX = 1200;
+            bottomX = 1200;
+            topY = -300;
+            bottomY = topY + 635;
+
+            repaint();
+            revalidate();
+            u=false;
+            score="0";
         }
         requestFocusInWindow();
     }
