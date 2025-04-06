@@ -334,7 +334,7 @@ label.setVisible(true);
                 if (!(textField.getText().isEmpty())) {
                     System.out.println("HI");
                     message = "score saved on leaderboard";
-
+                    saveScore = Integer.parseInt(score);
                     String name = textField.getText();
                     textField.setText("");
                     Player a = new Player(name, saveScore);
