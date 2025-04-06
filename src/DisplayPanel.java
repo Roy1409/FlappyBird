@@ -19,10 +19,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage pipe;
     private BufferedImage img;
     private JButton button4;
-    private boolean u;
     private boolean p;
     private String lbMessage=" ";
     private boolean k;
+
     private BufferedImage logo;
     private BufferedImage start;
     private int saveScore;
@@ -57,6 +57,7 @@ private BufferedImage lb;
     private int floorX;
     private boolean c;
     private int bird2Y;
+    private leaderboard lbs;
     private double velocity;
     private Timer time;
     private BufferedImage gameOver;
@@ -68,7 +69,7 @@ private BufferedImage lb;
     private int bird2X;
     private String score;
     public DisplayPanel() {
-
+         lbs =new leaderboard();
         playerList= new ArrayList<>();
         message="Enter Name (then click enter):";
         score="0";
@@ -85,6 +86,7 @@ private BufferedImage lb;
         bottomX = 1200;
         topY = -300;
         bottomY = topY + 635;
+
         button4= new JButton("ENTER");
         button = new JButton("");
         button1 = new JButton("");
@@ -175,6 +177,7 @@ private BufferedImage lb;
             label.setFont(new Font("Courier", Font.BOLD,30));
             label.setSize(5,2);
             label.setLocation(0,100);
+
             y.setFont(new Font("Courier", Font.BOLD,75));
             button.setSize(300,110 );
             button.setLocation(80,300);
@@ -188,13 +191,13 @@ private BufferedImage lb;
             button4.setSize(200,50);
         }
         if (a) {
+            g.drawString("PRESS R TO RETURN",100,50);
+
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
-            label.setVisible(true);
             y.setVisible(true);
             y.setText(score);
-            label.setText("<html>CLICK R TO Reset<br>" + lbMessage + "</html>");
             g.drawImage(bird2,bird2X,bird2Y,null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
@@ -204,6 +207,7 @@ private BufferedImage lb;
         }
         g.drawImage(floor,floorX,460, null);
         if (d && !c) {
+
             setLayout(null);
             this.add(button1);
             this.add(button2);
@@ -219,6 +223,8 @@ private BufferedImage lb;
         if (p) {
             g.drawString(message,225,100);
         }
+
+
 
 
     }
@@ -250,7 +256,6 @@ private BufferedImage lb;
                 a = true;
                 remove(button);
                 remove(button1);
-                repaint();
             }
             else if (casted == button1) {
                 if (textField.isVisible()) {
@@ -264,14 +269,17 @@ private BufferedImage lb;
                 c=true;
                 remove(button);
                 remove(button1);
-                u=true;
                 k=true;
-                if (playerList !=null) {
+                if (lbs.getList() !=null) {
                     lbMessage="";
-                for (int i=0; i<playerList.size(); i++)  {
-                    lbMessage+= "\n"+(i+1)+". Name: "+playerList.get(i).getName()+" Score: "+playerList.get(i).getScore()+"\n";
-                }
-                    label.setText("<html>CLICK R TO RETURN<br>"+lbMessage+"<html>");
+                    lbMessage=lbs.playerData();
+                    k=true;
+                    label.setLocation(20,-200);
+                    label.setSize(new Dimension(750, 750));  // Force label size
+label.setVisible(true);
+                    label.setText("<html>CLICK R TO Reset<br>"+lbMessage+"<html>");
+
+
             }
 
             }
@@ -295,7 +303,6 @@ private BufferedImage lb;
                 remove(button4);
                 remove(button2);
                 bottomY = topY + 635;
-                repaint();
             }
             if (casted==button3)  {
                 add(button4);
@@ -315,7 +322,9 @@ private BufferedImage lb;
                     String name = textField.getText();
                     textField.setText("");
                     Player a = new Player(name, saveScore);
-                    playerList.add(a);
+                    lbs.addData(a);
+                    label.setText("<html>CLICK R TO Reset<br>"+lbMessage+"<html>");
+
                     requestFocusInWindow();
                 }
             }
@@ -405,10 +414,9 @@ private BufferedImage lb;
             topY = -300;
             bottomY = topY + 635;
 
-            repaint();
-            revalidate();
-            u=false;
+
             score="0";
+            k=false;
         }
         requestFocusInWindow();
     }
