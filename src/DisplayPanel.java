@@ -27,12 +27,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage start;
     private int saveScore;
     private boolean f;
-    private boolean h;
     private JButton button3;
     private JLabel label;
 
     private BufferedImage tryAgain;
-    private BufferedImage bird2;
     private BufferedImage space;
     private BufferedImage shop;
     private BufferedImage floor;
@@ -68,12 +66,23 @@ private BufferedImage lb;
     private boolean b=false;
     private int bird2X;
     private String score;
+
+    // moving this to the class
+    private BufferedImage bird2;
+    private BufferedImage bird2up;
+    private BufferedImage bird2down;
+    private BufferedImage[] animation = new BufferedImage[3];
+    private int animationFrame;
+    private int animationTime;
+
     public DisplayPanel() {
          lbs =new leaderboard();
         playerList= new ArrayList<>();
         message="Enter Name (then click enter):";
         score="0";
         floorX=0;
+        animationFrame = 0;
+        animationTime = 0;
         bird2Y=150;
         bird2X=150;
         birdX=200;
@@ -126,6 +135,8 @@ private BufferedImage lb;
             tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
             shopButton=ImageIO.read(new File("src\\shopButton.png"));
             bird2 = ImageIO.read(new File("src\\bird2.png"));
+            bird2up = ImageIO.read(new File("src\\bird2up.png"));
+            bird2down = ImageIO.read(new File("src\\bird2down.png"));
             space = ImageIO.read(new File("src\\space.png"));
             background = ImageIO.read(new File("src\\a.png"));
             gameOver=ImageIO.read(new File("src\\gameOver.png"));
@@ -139,7 +150,9 @@ private BufferedImage lb;
             logo = ImageIO.read(new File("src\\Logo.png"));
             start =ImageIO.read(new File("src\\Start.png"));
             floor = ImageIO.read(new File("src\\floor.png"));
-            background = ImageIO.read(new File("src\\a.png"));
+            animation[0] = bird2;
+            animation[1] = bird2up;
+            animation[2] = bird2down;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -164,7 +177,7 @@ private BufferedImage lb;
         super.paintComponent(g);
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.setColor(Color.RED);
-        g.drawImage(background, 0, -100, null);g.drawImage(background, 0, -100, null);
+        g.drawImage(background, 0, -100, null);
         if (!a && !c){
             g.drawImage(pipe,450,300,null);
             g.drawImage(pipe2,375,-150,null);
@@ -196,9 +209,11 @@ private BufferedImage lb;
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
+            label.setVisible(true);
             y.setVisible(true);
             y.setText(score);
-            g.drawImage(bird2,bird2X,bird2Y,null);
+            label.setText("<html>CLICK R TO Reset<br>" + lbMessage + "</html>");
+            g.drawImage(animation[animationFrame], bird2X, bird2Y, null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
             g.drawImage(pipesBottom, pipesBX, pipesBY, null);
@@ -234,13 +249,13 @@ private BufferedImage lb;
         int x0=bird2.getWidth()-50;
         int y0=bird2.getHeight()-50;
         int x1=pipes.getWidth()-50;
-        int y1=pipes.getHeight()-10;
+        int y1=pipes.getHeight()-15;
         int x3=pipesBottom.getWidth();
-        int y3=pipesBottom.getHeight();
+        int y3=pipesBottom.getHeight()+15;
         int x4=top.getWidth();
-        int y4=top.getHeight();
+        int y4=top.getHeight()-15;
         int x5=bottom.getWidth();
-        int y5=bottom.getHeight();
+        int y5=bottom.getHeight()+15;
         Rectangle bird2=new Rectangle(bird2X,bird2Y,x0,y0);
         Rectangle pipesTop=new Rectangle(pipesX-35,pipesY,x1,y1);
         Rectangle pipesBottom= new Rectangle(pipesBX-35,pipesBY-30,x3,y3);
@@ -256,6 +271,7 @@ private BufferedImage lb;
                 a = true;
                 remove(button);
                 remove(button1);
+                repaint();
             }
             else if (casted == button1) {
                 if (textField.isVisible()) {
@@ -346,15 +362,13 @@ label.setVisible(true);
             if (birdX > 750) {
                 birdX = 100;
             }
-            if (floorX < -400) {
-                floorX = -1;
-            }
-            if (h) {
-                velocity = -7.5;
-                h = false;
+            if (floorX < -460) {
+                floorX = -30;
             }
             if (b && !d) {
+
                 f = true;
+
                 if (pipesX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
@@ -362,14 +376,25 @@ label.setVisible(true);
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
                 velocity += .5;
-                bird2Y += velocity;
+                bird2Y += velocity; // when velocity - bird go up
+                if (bird2Y < 0 ){
+                    bird2Y = -5;
+                }
+                if (animationTime > 10) {
+                    animationFrame++;
+                    animationTime = 0;
+                }
+                animationTime++;
                 pipesX -= 5;
                 pipesBX -= 5;
                 topX -= 5;
                 bottomX -= 5;
+                if (animationFrame >= 3){
+                    animationFrame = 0;
+                }
             }
         }
-        if (bird2Y > 418) { // less than 418 because velocity goes to fast
+        if (bird2Y > 415) { // less than 415 because velocity goes to fast
                 d=true;
 
                 add(button2);
@@ -391,7 +416,7 @@ label.setVisible(true);
             b=true;
         }
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
-            h=true;
+            velocity = -7.7;
         }
 
 
@@ -400,7 +425,6 @@ label.setVisible(true);
             a=true;
             b=false;
             label.setVisible(false);
-            h=true;
             d=false;
             c=false;
             bird2Y=150;
