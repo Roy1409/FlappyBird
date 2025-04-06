@@ -211,7 +211,6 @@ private BufferedImage lb;
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
-            label.setVisible(true);
             y.setVisible(true);
             y.setText(score);
             label.setText("<html>CLICK R TO Reset<br>" + lbMessage + "</html>");
@@ -336,7 +335,7 @@ label.setVisible(true);
                 if (!(textField.getText().isEmpty())) {
                     System.out.println("HI");
                     message = "score saved on leaderboard";
-
+                    saveScore = Integer.parseInt(score);
                     String name = textField.getText();
                     textField.setText("");
                     Player a = new Player(name, saveScore);
