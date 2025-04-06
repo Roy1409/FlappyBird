@@ -183,7 +183,7 @@ private BufferedImage lb;
             g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
             y.setSize(200,200);
-            label.setFont(new Font("Courier", Font.BOLD,30));
+            label.setFont(new Font("Monospaced", Font.BOLD,30));
             label.setSize(5,2);
             label.setLocation(0,100);
             y.setFont(new Font("Courier", Font.BOLD,75));
