@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -66,6 +67,7 @@ private BufferedImage lb;
     private boolean b=false;
     private int bird2X;
     private String score;
+    double rotationAngle = Math.toRadians(90);
 
     // moving this to the class
     private BufferedImage bird2;
