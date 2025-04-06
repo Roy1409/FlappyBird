@@ -171,7 +171,7 @@ private BufferedImage lb;
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.setFont(new Font("Monospaced", Font.BOLD, 16));
         g.setColor(Color.RED);
         g.drawImage(background, 0, -100, null);
         if (!a && !c){
@@ -186,7 +186,7 @@ private BufferedImage lb;
             label.setFont(new Font("Monospaced", Font.BOLD,30));
             label.setSize(5,2);
             label.setLocation(0,100);
-            y.setFont(new Font("Courier", Font.BOLD,75));
+            y.setFont(new Font("Monospaced", Font.BOLD,75));
             button.setSize(300,110 );
             button.setLocation(80,300);
             button1.setSize(100,108 );
