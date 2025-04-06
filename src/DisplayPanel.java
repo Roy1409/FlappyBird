@@ -66,6 +66,7 @@ private BufferedImage lb;
     private int bird2X;
     private String score;
     public DisplayPanel() {
+
         playerList= new ArrayList<>();
         message="Enter Name (then click enter):";
         score="0";
@@ -262,11 +263,11 @@ private BufferedImage lb;
 
                 if (playerList !=null) {
 
-                    lbMessage=" ";
+                    lbMessage="";
                 for (int i=0; i<playerList.size(); i++)  {
-                    lbMessage+= (i+1)+". Name: "+playerList.get(i).getName()+" Score: "+playerList.get(i).getScore()+"\n";
+                    lbMessage+= "\n"+(i+1)+". Name: "+playerList.get(i).getName()+" Score: "+playerList.get(i).getScore()+"\n";
                 }
-                    label.setText(lbMessage);
+                    label.setText("<html>CLICK R TO RETURN<br>"+lbMessage+"<html>");
                     label.setVisible(true);
             }
 
@@ -378,6 +379,11 @@ private BufferedImage lb;
         }
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             h=true;
+        }
+
+
+        if (e.getKeyCode()== KeyEvent.VK_R) {
+
         }
         requestFocusInWindow();
     }
