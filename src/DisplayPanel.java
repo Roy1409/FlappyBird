@@ -417,12 +417,14 @@ private BufferedImage lb;
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             velocity = -7.7;
         }
-        if (e.getKeyCode()== KeyEvent.VK_E) {
-            if (animationVariant <= 2){
-                animationVariant++;
-            } else {
-                animationVariant = 0;
-            }
+        if (e.getKeyCode()== KeyEvent.VK_0) {
+            animationVariant = 1;
+        }
+        if (e.getKeyCode()== KeyEvent.VK_1) {
+            animationVariant = 2;
+        }
+        if (e.getKeyCode()== KeyEvent.VK_2) {
+            animationVariant = 3;
         }
 
         if (e.getKeyCode()== KeyEvent.VK_R) {
