@@ -191,7 +191,7 @@ private BufferedImage lb;
             button4.setSize(200,50);
         }
         if (a) {
-            g.drawString("PRESS R TO RETURN",100,50);
+            g.drawString("PRESS R TO RETURN",100,25);
 
             if (!b) {
                 g.drawImage(space,250,50,null);
