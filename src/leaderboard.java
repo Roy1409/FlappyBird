@@ -12,13 +12,11 @@ public class leaderboard {
         x=new ArrayList<>();
         scan = new Scanner(System.in);
         readData();
-
     }
 
     public void addData(Player player) {
         x.add(player);
         sortList();
-
     }
 
     public String playerData() {
@@ -26,15 +24,16 @@ public class leaderboard {
         sortList();
         for (int i=0; i<x.size(); i++)  {
             a+=(i+1)+". Name: "+x.get(i).getName()+" Score: "+x.get(i).getScore()+"<br>";
-
         }
         savaData();
         return a;
-    }
+        }
          public ArrayList<Player> getList() {
-    return x; }
-private void readData() {
-        try{
+            return x;
+    }
+
+        private void readData() {
+         try{
             File data=new File("src\\playerData");
             Scanner fileScanner= new Scanner (data);
             while(fileScanner.hasNext()) {
@@ -44,9 +43,7 @@ private void readData() {
                 int q = Integer.parseInt(splitData[1]);
                 Player a= new Player(y,q);
                 this.x.add(a);
-
             }
-
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
@@ -62,14 +59,9 @@ private void savaData() {
     } catch (IOException exception) {
         System.out.println(exception.getMessage());
     }
-
-
-
 }
     private void sortList() {
-
         ArrayList<Player> p = new ArrayList<>(x);
-
         for (int i = 0; i < p.size(); i++) {
             int idx = i;
 
@@ -78,7 +70,6 @@ private void savaData() {
                     idx = j;
                 }
             }
-
             Player temp = p.get(idx);
             p.set(idx, p.get(i));
             p.set(i, temp);
@@ -86,7 +77,4 @@ private void savaData() {
 
         x = p;
     }
-
-
-
 }
