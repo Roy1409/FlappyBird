@@ -6,7 +6,6 @@ public class Player implements Comparable<Player> {
         this.score=score;
     }
 
-
     public int getScore() {
         return score;
     }
@@ -19,11 +18,9 @@ public class Player implements Comparable<Player> {
         this.name = name;
     }
 
-
     public void setScore(int score) {
         this.score = score;
     }
-
 
     public int compareTo(Player other) {
         return Integer.compare(other.score, this.score);

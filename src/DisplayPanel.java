@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
-    private ArrayList<Player> playerList;
     private JTextField textField;
     private BufferedImage pipe2;
     private BufferedImage background;
@@ -20,8 +19,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage img;
     private JButton button4;
     private boolean p;
-    private String lbMessage=" ";
-    private boolean k;
+    private String lbMessage;
     private BufferedImage logo;
     private BufferedImage start;
     private int saveScore;
@@ -30,12 +28,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private JLabel label;
     private BufferedImage tryAgain;
     private BufferedImage space;
-    private BufferedImage shop;
     private BufferedImage floor;
     private BufferedImage pipes;
     private BufferedImage pipesBottom;
     private BufferedImage top;
-private BufferedImage lb;
+    private BufferedImage lb;
     private BufferedImage bottom;
     private boolean d;
     private BufferedImage save;
@@ -50,7 +47,6 @@ private BufferedImage lb;
     private int bottomX;
     private int bottomY;
     private int birdX;
-    private BufferedImage shopButton;
     private int floorX;
     private boolean c;
     private int bird2Y;
@@ -82,8 +78,8 @@ private BufferedImage lb;
     private int animationTime;
 
     public DisplayPanel() {
-         lbs =new leaderboard();
-        playerList= new ArrayList<>();
+        lbMessage="";
+        lbs =new leaderboard();
         str="Click 1/2/3 to change color";
         message="Enter Name to save score (then click enter):";
         score="0";
@@ -140,7 +136,6 @@ private BufferedImage lb;
             lb=ImageIO.read(new File("src\\leaderboard.jpg"));
             save = ImageIO.read(new File("src\\save.png"));
             tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
-            shopButton=ImageIO.read(new File("src\\shopButton.png"));
             //YELLOW BIRD
             bird2 = ImageIO.read(new File("src\\bird2.png"));
             bird2up = ImageIO.read(new File("src\\bird2up.png"));
@@ -206,7 +201,6 @@ private BufferedImage lb;
             g.drawImage(logo,75,50,null);
             g.drawImage(start,80,300,this);
             g.drawImage(img,birdX,birdY,null);
-            g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
             y.setSize(300,300);
             label.setFont(new Font("Monospaced", Font.BOLD,30));
@@ -228,7 +222,6 @@ private BufferedImage lb;
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
-
             y.setVisible(true);
             y.setText(score);
             label.setText("<html>CLICK R TO GO BACK<br>" + lbMessage + "</html>");
@@ -291,11 +284,9 @@ private BufferedImage lb;
                 c=true;
                 remove(button);
                 remove(button1);
-                k=true;
                 if (lbs.getList() !=null) {
                     lbMessage="";
                     lbMessage=lbs.playerData();
-                    k=true;
                     label.setLocation(20,-200);
                     label.setSize(new Dimension(750, 750));  // Force label size
                     label.setVisible(true);
@@ -369,9 +360,7 @@ private BufferedImage lb;
                 floorX = -30;
             }
             if (b && !d) {
-
                 f = true;
-
                 if (pipesX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
@@ -399,12 +388,11 @@ private BufferedImage lb;
         }
         if (bird2Y > 415) { // less than 415 because velocity goes to fast
                 d=true;
-
                 add(button2);
-        }
+            }
         if (birdY == 16) {
             birdY -= 9;
-        }
+            }
         repaint();
         if (p) {
             //do nothing
@@ -430,7 +418,6 @@ private BufferedImage lb;
         if (e.getKeyCode()== KeyEvent.VK_3) {
             animationVariant = 2;
         }
-
         if (e.getKeyCode()== KeyEvent.VK_R) {
 
             a=true;
@@ -448,10 +435,7 @@ private BufferedImage lb;
             bottomX = 1200;
             topY = -300;
             bottomY = topY + 635;
-
-
             score="0";
-            k=false;
         }
         requestFocusInWindow();
     }
