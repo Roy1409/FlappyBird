@@ -2,7 +2,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -65,12 +64,20 @@ private BufferedImage lb;
     private boolean b=false;
     private int bird2X;
     private String score;
-    double rotationAngle = Math.toRadians(90);
+
     private BufferedImage bird2;
     private BufferedImage bird2up;
     private BufferedImage bird2down;
-    private BufferedImage[] animation = new BufferedImage[3];
+    private BufferedImage blue;
+    private BufferedImage blueUp;
+    private BufferedImage blueDown;
+    private BufferedImage red;
+    private BufferedImage redUp;
+    private BufferedImage redDown;
+
+    private BufferedImage[][] animation = new BufferedImage[3][3];
     private int animationFrame;
+    private int animationVariant;
     private int animationTime;
 
     public DisplayPanel() {
@@ -80,6 +87,7 @@ private BufferedImage lb;
         score="0";
         floorX=0;
         animationFrame = 0;
+        animationVariant = 0;
         animationTime = 0;
         bird2Y=150;
         bird2X=150;
@@ -131,9 +139,19 @@ private BufferedImage lb;
             save = ImageIO.read(new File("src\\save.png"));
             tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
             shopButton=ImageIO.read(new File("src\\shopButton.png"));
+            //YELLOW BIRD
             bird2 = ImageIO.read(new File("src\\bird2.png"));
             bird2up = ImageIO.read(new File("src\\bird2up.png"));
             bird2down = ImageIO.read(new File("src\\bird2down.png"));
+            //BLUE BIRD
+            blue = ImageIO.read(new File("src\\blue.png"));
+            blueUp = ImageIO.read(new File("src\\blueup.png"));
+            blueDown = ImageIO.read(new File("src\\bluedown.png"));
+            //RED BIRD
+            red = ImageIO.read(new File("src\\red.png"));
+            redUp = ImageIO.read(new File("src\\redup.png"));
+            redDown = ImageIO.read(new File("src\\reddown.png"));
+
             space = ImageIO.read(new File("src\\space.png"));
             background = ImageIO.read(new File("src\\a.png"));
             gameOver=ImageIO.read(new File("src\\gameOver.png"));
@@ -147,9 +165,15 @@ private BufferedImage lb;
             logo = ImageIO.read(new File("src\\Logo.png"));
             start =ImageIO.read(new File("src\\Start.png"));
             floor = ImageIO.read(new File("src\\floor.png"));
-            animation[0] = bird2;
-            animation[1] = bird2up;
-            animation[2] = bird2down;
+            animation[0][0] = bird2;
+            animation[0][1] = bird2up;
+            animation[0][2] = bird2down;
+            animation[1][0] = blue;
+            animation[1][1] = blueUp;
+            animation[1][2] = blueDown;
+            animation[2][0] = red;
+            animation[2][1] = redUp;
+            animation[2][2] = redDown;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -182,7 +206,7 @@ private BufferedImage lb;
             g.drawImage(img,birdX,birdY,null);
             g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
-            y.setSize(200,200);
+            y.setSize(300,300);
             label.setFont(new Font("Monospaced", Font.BOLD,30));
             label.setSize(5,2);
             label.setLocation(0,100);
@@ -205,7 +229,7 @@ private BufferedImage lb;
             y.setVisible(true);
             y.setText(score);
             label.setText("<html>CLICK R TO GO BACK<br>" + lbMessage + "</html>");
-            g.drawImage(animation[animationFrame], bird2X, bird2Y, null);
+            g.drawImage(animation[animationVariant][animationFrame], bird2X, bird2Y, null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
             g.drawImage(pipesBottom, pipesBX, pipesBY, null);
@@ -230,8 +254,8 @@ private BufferedImage lb;
         }
     }
     public void actionPerformed(ActionEvent e) {
-        int birdWidth = animation[animationFrame].getWidth() - 10;
-        int birdHeight = animation[animationFrame].getHeight() - 10;
+        int birdWidth = animation[0][animationFrame].getWidth() - 10;
+        int birdHeight = animation[0][animationFrame].getHeight() - 10;
         Rectangle bird2 = new Rectangle(bird2X + 5, bird2Y + 5, birdWidth, birdHeight);
         Rectangle pipe1Top = new Rectangle(pipesX, pipesY, pipes.getWidth(), pipes.getHeight());
         Rectangle pipe1Bottom = new Rectangle(pipesBX, pipesBY, pipesBottom.getWidth(), pipesBottom.getHeight());
@@ -289,7 +313,7 @@ private BufferedImage lb;
                 pipesBY = pipesY + 635;
                 topX = 1200;
                 bottomX = 1200;
-                topY = -300;
+                topY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));;
                 remove(button4);
                 remove(button2);
                 bottomY = topY + 635;
@@ -393,7 +417,13 @@ private BufferedImage lb;
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
             velocity = -7.7;
         }
-
+        if (e.getKeyCode()== KeyEvent.VK_E) {
+            if (animationVariant <= 2){
+                animationVariant++;
+            } else {
+                animationVariant = 0;
+            }
+        }
 
         if (e.getKeyCode()== KeyEvent.VK_R) {
 
