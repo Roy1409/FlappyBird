@@ -33,7 +33,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage pipes;
     private BufferedImage pipesBottom;
     private BufferedImage top;
-
+private BufferedImage lb;
     private BufferedImage bottom;
     private boolean d;
     private BufferedImage save;
@@ -110,6 +110,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         button4.setFocusable(false);
 
         try {
+            lb=ImageIO.read(new File("src\\leaderboard.jpg"));
             save = ImageIO.read(new File("src\\save.png"));
             tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
             shopButton=ImageIO.read(new File("src\\shopButton.png"));
@@ -127,7 +128,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             logo = ImageIO.read(new File("src\\Logo.png"));
             start =ImageIO.read(new File("src\\Start.png"));
             floor = ImageIO.read(new File("src\\floor.png"));
-            shop= ImageIO.read(new File("src\\shop.png"));
             background = ImageIO.read(new File("src\\a.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -135,7 +135,6 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         y=new JLabel(score);
         add(button);
         add(y);
-        add(button1);
         y.setVisible(false);
         textField = new JTextField(20);
         time= new Timer(15,this);
@@ -163,17 +162,14 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             y.setFont(new Font("Courier", Font.BOLD,75));
             button.setSize(300,110 );
             button.setLocation(80,300);
-            button1.setSize(150,150 );
-            button1.setLocation(360,280);
+            button1.setSize(100,108 );
+            button1.setLocation(475,250);
             button2.setSize(200,111);
             button2.setLocation(250,250);
             button3.setSize(150,150);
             button3.setLocation(75,220);
             button4.setLocation(250,150);
             button4.setSize(200,50);
-        } else if (c)
-        {
-            g.drawImage(shopButton,200,0,null);
         }
         if (a) {
             if (!b) {
@@ -190,9 +186,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         g.drawImage(floor,floorX,460, null);
 
-        if (d ) {
+        if (d && !c) {
+            this.add(button1);
             this.add(button2);
             this.add(button3);
+            g.drawImage(lb,475,250,null);
             g.drawImage(save,75,220,null);
             g.drawImage(gameOver,135,100,null);
             g.drawImage (tryAgain,250,250,null);
@@ -233,8 +231,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 repaint();
             }
             else if (casted == button1) {
+                y.setText("");
                 a = false;
-                c = true;
+                c=true;
                 remove(button);
                 remove(button1);
                 repaint();
