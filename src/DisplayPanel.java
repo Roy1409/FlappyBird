@@ -46,6 +46,7 @@ private BufferedImage lb;
     private int pipesBY;
     private int topX;
     private int topY;
+    private String str;
     private int bottomX;
     private int bottomY;
     private int birdX;
@@ -83,6 +84,7 @@ private BufferedImage lb;
     public DisplayPanel() {
          lbs =new leaderboard();
         playerList= new ArrayList<>();
+        str="Click 1/2/3 to change color";
         message="Enter Name to save score (then click enter):";
         score="0";
         floorX=0;
@@ -226,9 +228,11 @@ private BufferedImage lb;
             if (!b) {
                 g.drawImage(space,250,50,null);
             }
+
             y.setVisible(true);
             y.setText(score);
             label.setText("<html>CLICK R TO GO BACK<br>" + lbMessage + "</html>");
+            g.drawString(str,25,50);
             g.drawImage(animation[animationVariant][animationFrame], bird2X, bird2Y, null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
