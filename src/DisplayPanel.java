@@ -7,9 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
+    private ArrayList<Player> playerList;
     private JTextField textField;
     private BufferedImage pipe2;
     private BufferedImage background;
@@ -18,12 +20,15 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage img;
     private JButton button4;
     private boolean p;
+    private String lbMessage;
+    private boolean k;
     private BufferedImage logo;
     private BufferedImage start;
     private int saveScore;
     private boolean f;
     private boolean h;
     private JButton button3;
+    private JLabel label;
 
     private BufferedImage tryAgain;
     private BufferedImage bird2;
@@ -61,6 +66,7 @@ private BufferedImage lb;
     private int bird2X;
     private String score;
     public DisplayPanel() {
+        playerList= new ArrayList<>();
         message="Enter Name (then click enter):";
         score="0";
         floorX=0;
@@ -132,10 +138,14 @@ private BufferedImage lb;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        label=new JLabel(" ");
         y=new JLabel(score);
         add(button);
         add(y);
+        add(label);
+        label.setVisible(false);
         y.setVisible(false);
+        label.setForeground(Color.black);
         textField = new JTextField(20);
         time= new Timer(15,this);
         time.start();
@@ -159,6 +169,9 @@ private BufferedImage lb;
             g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
             y.setSize(200,200);
+            label.setFont(new Font("Courier", Font.BOLD,30));
+            label.setSize(5,2);
+            label.setLocation(0,100);
             y.setFont(new Font("Courier", Font.BOLD,75));
             button.setSize(300,110 );
             button.setLocation(80,300);
@@ -199,7 +212,9 @@ private BufferedImage lb;
         if (p) {
             g.drawString(message,225,100);
         }
-    }
+
+        }
+
 
     public void actionPerformed(ActionEvent e) {
         int x0=bird2.getWidth()-50;
@@ -231,12 +246,30 @@ private BufferedImage lb;
                 repaint();
             }
             else if (casted == button1) {
-                y.setText("");
+                if (textField.isVisible()) {
+                    textField.setVisible(false);
+
+                }
+                y.setVisible(false);
+                p=false;
+                remove(button4);
                 a = false;
                 c=true;
                 remove(button);
                 remove(button1);
                 repaint();
+                k=true;
+
+                if (playerList !=null) {
+
+                    lbMessage=" ";
+                for (int i=0; i<playerList.size(); i++)  {
+                    lbMessage+= (i+1)+". Name: "+playerList.get(i).getName()+" Score: "+playerList.get(i).getScore()+"\n";
+                }
+                    label.setText(lbMessage);
+                    label.setVisible(true);
+            }
+
             }
             else if (casted == button2) {
             p=false;
@@ -275,9 +308,11 @@ private BufferedImage lb;
                 if (!(textField.getText().isEmpty())) {
                     System.out.println("HI");
                     message = "score saved on leaderboard";
-                    textField.setText("");
+
                     String name = textField.getText();
+                    textField.setText("");
                     Player a = new Player(name, saveScore);
+                    playerList.add(a);
                     requestFocusInWindow();
                 }
             }
