@@ -57,6 +57,7 @@ private BufferedImage lb;
     private int floorX;
     private boolean c;
     private int bird2Y;
+    private double velocity;
     private Timer time;
     private BufferedImage gameOver;
     private JButton button1;
@@ -340,7 +341,7 @@ private BufferedImage lb;
                 floorX = -1;
             }
             if (h) {
-                bird2Y -= 60;
+                velocity = -7.5;
                 h = false;
             }
             if (b && !d) {
@@ -351,14 +352,15 @@ private BufferedImage lb;
                 if (topX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
-                bird2Y +=  5;
+                velocity += .5;
+                bird2Y += velocity;
                 pipesX -= 5;
                 pipesBX -= 5;
                 topX -= 5;
                 bottomX -= 5;
             }
         }
-        if (bird2Y == 420) {
+        if (bird2Y > 418) { // less than 418 because velocity goes to fast
                 d=true;
 
                 add(button2);
