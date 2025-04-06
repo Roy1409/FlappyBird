@@ -23,14 +23,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private boolean p;
     private String lbMessage=" ";
     private boolean k;
-
     private BufferedImage logo;
     private BufferedImage start;
     private int saveScore;
     private boolean f;
     private JButton button3;
     private JLabel label;
-
     private BufferedImage tryAgain;
     private BufferedImage space;
     private BufferedImage shop;
@@ -68,7 +66,6 @@ private BufferedImage lb;
     private int bird2X;
     private String score;
     double rotationAngle = Math.toRadians(90);
-
     private BufferedImage bird2;
     private BufferedImage bird2up;
     private BufferedImage bird2down;
