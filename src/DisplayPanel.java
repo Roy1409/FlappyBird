@@ -230,21 +230,13 @@ private BufferedImage lb;
         }
     }
     public void actionPerformed(ActionEvent e) {
-        int x0=bird2.getWidth()-50;
-        int y0=bird2.getHeight()-50;
-        int x1=pipes.getWidth()-50;
-        int y1=pipes.getHeight()-15;
-        int x3=pipesBottom.getWidth();
-        int y3=pipesBottom.getHeight()+15;
-        int x4=top.getWidth();
-        int y4=top.getHeight()-15;
-        int x5=bottom.getWidth();
-        int y5=bottom.getHeight()+15;
-        Rectangle bird2=new Rectangle(bird2X,bird2Y,x0,y0);
-        Rectangle pipesTop=new Rectangle(pipesX-35,pipesY,x1,y1);
-        Rectangle pipesBottom= new Rectangle(pipesBX-35,pipesBY-30,x3,y3);
-        Rectangle pipes2Top= new Rectangle(topX,topY,x4,y4);
-        Rectangle pipes2bottom= new Rectangle(bottomX,bottomY,x5,y5);
+        int birdWidth = animation[animationFrame].getWidth() - 10;
+        int birdHeight = animation[animationFrame].getHeight() - 10;
+        Rectangle bird2 = new Rectangle(bird2X + 5, bird2Y + 5, birdWidth, birdHeight);
+        Rectangle pipe1Top = new Rectangle(pipesX, pipesY, pipes.getWidth(), pipes.getHeight());
+        Rectangle pipe1Bottom = new Rectangle(pipesBX, pipesBY, pipesBottom.getWidth(), pipesBottom.getHeight());
+        Rectangle pipe2Top = new Rectangle(topX, topY, top.getWidth(), top.getHeight());
+        Rectangle pipe2Bottom = new Rectangle(bottomX, bottomY, bottom.getWidth(), bottom.getHeight());
         repaint();
         if (bird2.intersects(pipe1Top) || bird2.intersects(pipe1Bottom) ||
                 bird2.intersects(pipe2Top) || bird2.intersects(pipe2Bottom)) {
@@ -323,6 +315,7 @@ private BufferedImage lb;
                     Player a = new Player(name, saveScore);
                     lbs.addData(a);
                     label.setText("<html>CLICK R TO GO BACK<br>"+lbMessage+"<html>");
+
                     requestFocusInWindow();
                 }
             }
@@ -348,7 +341,9 @@ private BufferedImage lb;
                 floorX = -30;
             }
             if (b && !d) {
+
                 f = true;
+
                 if (pipesX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
@@ -376,6 +371,7 @@ private BufferedImage lb;
         }
         if (bird2Y > 415) { // less than 415 because velocity goes to fast
                 d=true;
+
                 add(button2);
         }
         if (birdY == 16) {
@@ -387,6 +383,7 @@ private BufferedImage lb;
         } else{
         requestFocusInWindow(); }
     }
+
     public void keyTyped(KeyEvent e) { }
 
     public void keyPressed(KeyEvent e) {
@@ -394,10 +391,12 @@ private BufferedImage lb;
             b=true;
         }
         if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
-            velocity = -8.8;
+            velocity = -7.7;
         }
 
+
         if (e.getKeyCode()== KeyEvent.VK_R) {
+
             a=true;
             b=false;
             label.setVisible(false);
@@ -413,6 +412,8 @@ private BufferedImage lb;
             bottomX = 1200;
             topY = -300;
             bottomY = topY + 635;
+
+
             score="0";
             k=false;
         }
@@ -427,6 +428,7 @@ private BufferedImage lb;
 
     public void mouseReleased(MouseEvent e) {
     }
+
     public void mouseEntered(MouseEvent e) { } // leave empty; don't need this one
 
     public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
