@@ -17,10 +17,13 @@ public class leaderboard {
 
     public void addData(Player player) {
         x.add(player);
+        sortList();
+
     }
 
     public String playerData() {
         String a= "";
+        sortList();
         for (int i=0; i<x.size(); i++)  {
             a+=(i+1)+". Name: "+x.get(i).getName()+" Score: "+x.get(i).getScore()+"<br>";
 
@@ -59,7 +62,30 @@ private void savaData() {
     } catch (IOException exception) {
         System.out.println(exception.getMessage());
     }
+
+
+
 }
+    private void sortList() {
+
+        ArrayList<Player> p = new ArrayList<>(x);
+
+        for (int i = 0; i < p.size(); i++) {
+            int idx = i;
+
+            for (int j = i + 1; j < p.size(); j++) {
+                if (p.get(j).getScore() > p.get(idx).getScore()) {
+                    idx = j;
+                }
+            }
+
+            Player temp = p.get(idx);
+            p.set(idx, p.get(i));
+            p.set(i, temp);
+        }
+
+        x = p;
+    }
 
 
 
