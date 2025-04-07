@@ -364,7 +364,8 @@ private BufferedImage lb;
         }
         if (e.getSource() instanceof Timer) {
             floorX -= 5;
-            if (animationTime > 10 && !d) { // insights from https://www.youtube.com/watch?v=zRi0vzQbuqY
+            // insights from https://www.youtube.com/watch?v=zRi0vzQbuqY
+            if (animationTime > 8 && !d) { // if statement to slow down frames switching
                 animationFrame++;
                 animationTime = 0;
             }
@@ -434,7 +435,7 @@ private BufferedImage lb;
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             b=true;
         }
-        if ( f &&e.getKeyCode() == KeyEvent.VK_SPACE) {
+        if ( f && e.getKeyCode() == KeyEvent.VK_SPACE) {
             velocity = -7.7;
         }
         if (e.getKeyCode()== KeyEvent.VK_1){
@@ -464,7 +465,6 @@ private BufferedImage lb;
             bottomX = 1200;
             topY = -300;
             bottomY = topY + 635;
-
 
             score="0";
             k=false;
