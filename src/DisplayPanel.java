@@ -426,9 +426,10 @@ private BufferedImage lb;
         } else{
         requestFocusInWindow(); }
     }
-
+    @Override
     public void keyTyped(KeyEvent e) { }
 
+    @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SPACE) {
             b=true;
@@ -470,19 +471,18 @@ private BufferedImage lb;
         }
         requestFocusInWindow();
     }
+
+    @Override
     public void keyReleased(KeyEvent e) { }
-    // must add all 5 of the following methods, which are required by MouseListener interface
-    public void mouseClicked(MouseEvent e) {
-    } // leave empty; don't need this one
 
-    public void mousePressed(MouseEvent e) { } // leave empty; don't need this one
+    public void mouseClicked(MouseEvent e) { }
 
-    public void mouseReleased(MouseEvent e) {
-    }
+    public void mousePressed(MouseEvent e) { }
 
-    public void mouseEntered(MouseEvent e) { } // leave empty; don't need this one
+    public void mouseReleased(MouseEvent e) { }
 
-    public void mouseExited(MouseEvent e) { } // leave empty; don't need this one
+    public void mouseEntered(MouseEvent e) { }
 
+    public void mouseExited(MouseEvent e) { }
 }
 
