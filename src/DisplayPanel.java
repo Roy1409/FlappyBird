@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class DisplayPanel extends JPanel implements ActionListener, KeyListener {
     private boolean a;
+    private ArrayList<Player> playerList;
     private JTextField textField;
     private BufferedImage pipe2;
     private BufferedImage background;
@@ -19,7 +20,8 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage img;
     private JButton button4;
     private boolean p;
-    private String lbMessage;
+    private String lbMessage=" ";
+    private boolean k;
     private BufferedImage logo;
     private BufferedImage start;
     private int saveScore;
@@ -28,11 +30,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private JLabel label;
     private BufferedImage tryAgain;
     private BufferedImage space;
+    private BufferedImage shop;
     private BufferedImage floor;
     private BufferedImage pipes;
     private BufferedImage pipesBottom;
     private BufferedImage top;
-    private BufferedImage lb;
+private BufferedImage lb;
     private BufferedImage bottom;
     private boolean d;
     private BufferedImage save;
@@ -47,6 +50,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private int bottomX;
     private int bottomY;
     private int birdX;
+    private BufferedImage shopButton;
     private int floorX;
     private boolean c;
     private int bird2Y;
@@ -62,6 +66,9 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private int bird2X;
     private String score;
 
+    private BufferedImage[] yellowBird;
+    private BufferedImage[] blueBird;
+    private BufferedImage[] redBird;
     private BufferedImage bird2;
     private BufferedImage bird2up;
     private BufferedImage bird2down;
@@ -72,14 +79,18 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
     private BufferedImage redUp;
     private BufferedImage redDown;
 
-    private BufferedImage[][] animation = new BufferedImage[3][3];
+    private BufferedImage[][] animation;
     private int animationFrame;
     private int animationVariant;
     private int animationTime;
 
     public DisplayPanel() {
-        lbMessage="";
-        lbs =new leaderboard();
+        animation = new BufferedImage[3][3];
+        yellowBird = new BufferedImage[3];
+        blueBird = new BufferedImage[3];
+        redBird = new BufferedImage[3];
+         lbs =new leaderboard();
+        playerList= new ArrayList<>();
         str="Click 1/2/3 to change color";
         message="Enter Name to save score (then click enter):";
         score="0";
@@ -136,7 +147,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             lb=ImageIO.read(new File("src\\leaderboard.jpg"));
             save = ImageIO.read(new File("src\\save.png"));
             tryAgain=ImageIO.read(new File("src\\tryAgain.png"));
-            //YELLOW BIRD
+            shopButton=ImageIO.read(new File("src\\shopButton.png"));
+
+            // https://github.com/samuelcust/flappy-bird-assets/tree/master/sprites Birds:
+            //YELLOW BIRD //
             bird2 = ImageIO.read(new File("src\\bird2.png"));
             bird2up = ImageIO.read(new File("src\\bird2up.png"));
             bird2down = ImageIO.read(new File("src\\bird2down.png"));
@@ -149,6 +163,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             redUp = ImageIO.read(new File("src\\redup.png"));
             redDown = ImageIO.read(new File("src\\reddown.png"));
 
+            // SPRITES https://www.google.com/url?q=https://ai.thestempedia.com/project/make-flappy-bird-game-using-human-body-detection-extension-in-pictoblox/&sa=D&source=docs&ust=1743988295409354&usg=AOvVaw3vbqoINb38jrKPjEwQzDem
             space = ImageIO.read(new File("src\\space.png"));
             background = ImageIO.read(new File("src\\a.png"));
             gameOver=ImageIO.read(new File("src\\gameOver.png"));
@@ -162,15 +177,19 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             logo = ImageIO.read(new File("src\\Logo.png"));
             start =ImageIO.read(new File("src\\Start.png"));
             floor = ImageIO.read(new File("src\\floor.png"));
-            animation[0][0] = bird2;
-            animation[0][1] = bird2up;
-            animation[0][2] = bird2down;
-            animation[1][0] = blue;
-            animation[1][1] = blueUp;
-            animation[1][2] = blueDown;
-            animation[2][0] = red;
-            animation[2][1] = redUp;
-            animation[2][2] = redDown;
+            yellowBird[0] = bird2;
+            yellowBird[1] = bird2up;
+            yellowBird[2]= bird2down;
+            blueBird[0] = blue;
+            blueBird[1]= blueUp;
+            blueBird[2] = blueDown;
+            redBird[0] = red;
+            redBird[1] = redUp;
+            redBird[2] = redDown;
+            animation[0] = yellowBird;
+            animation[1] = blueBird;
+            animation[2] = redBird;
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -201,6 +220,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             g.drawImage(logo,75,50,null);
             g.drawImage(start,80,300,this);
             g.drawImage(img,birdX,birdY,null);
+            g.drawImage(shop,360,280,null);
             g.drawImage(floor,floorX,460, null);
             y.setSize(300,300);
             label.setFont(new Font("Monospaced", Font.BOLD,30));
@@ -220,12 +240,13 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         if (a) {
             if (!b) {
+                g.drawString(str,25,50);
                 g.drawImage(space,250,50,null);
             }
+
             y.setVisible(true);
             y.setText(score);
             label.setText("<html>CLICK R TO GO BACK<br>" + lbMessage + "</html>");
-            g.drawString(str,25,50);
             g.drawImage(animation[animationVariant][animationFrame], bird2X, bird2Y, null);
             g.drawImage(floor,floorX,460, null);
             g.drawImage(pipes, pipesX, pipesY, null);
@@ -284,9 +305,11 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 c=true;
                 remove(button);
                 remove(button1);
+                k=true;
                 if (lbs.getList() !=null) {
                     lbMessage="";
                     lbMessage=lbs.playerData();
+                    k=true;
                     label.setLocation(20,-200);
                     label.setSize(new Dimension(750, 750));  // Force label size
                     label.setVisible(true);
@@ -341,6 +364,12 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         }
         if (e.getSource() instanceof Timer) {
             floorX -= 5;
+            if (animationTime > 10 && !d) { // insights from https://www.youtube.com/watch?v=zRi0vzQbuqY
+                animationFrame++;
+                animationTime = 0;
+            }
+            animationTime++;
+
             if (pipesX < -200) {
                 pipesY = (int) (Math.random() * (-400 - (-200) + 1) + (-200));
                 pipesBY = pipesY + 635;
@@ -360,39 +389,37 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
                 floorX = -30;
             }
             if (b && !d) {
+
                 f = true;
+
                 if (pipesX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
                 if (topX == bird2X) {
                     score = Integer.toString(Integer.parseInt(score) + 1);
                 }
-                velocity += .5;
+                velocity += .5; // simplification of this and some other vids + stackoverflow: https://www.youtube.com/watch?v=BEZjoBLOtkg
                 bird2Y += velocity; // when velocity - bird go up
                 if (bird2Y < 0 ){
                     bird2Y = -5;
                 }
-                if (animationTime > 10) {
-                    animationFrame++;
-                    animationTime = 0;
-                }
-                animationTime++;
                 pipesX -= 5;
                 pipesBX -= 5;
                 topX -= 5;
                 bottomX -= 5;
-                if (animationFrame >= 3){
-                    animationFrame = 0;
-                }
             }
+        }
+        if (animationFrame >= 3){
+            animationFrame = 0;
         }
         if (bird2Y > 415) { // less than 415 because velocity goes to fast
                 d=true;
+
                 add(button2);
-            }
+        }
         if (birdY == 16) {
             birdY -= 9;
-            }
+        }
         repaint();
         if (p) {
             //do nothing
@@ -418,6 +445,7 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
         if (e.getKeyCode()== KeyEvent.VK_3) {
             animationVariant = 2;
         }
+
         if (e.getKeyCode()== KeyEvent.VK_R) {
 
             a=true;
@@ -435,7 +463,10 @@ public class DisplayPanel extends JPanel implements ActionListener, KeyListener 
             bottomX = 1200;
             topY = -300;
             bottomY = topY + 635;
+
+
             score="0";
+            k=false;
         }
         requestFocusInWindow();
     }
